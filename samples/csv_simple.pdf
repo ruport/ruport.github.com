@@ -1,0 +1,200 @@
+
+
+
+%PDF-1.3
+%‚„œ”
+
+1 0 obj
+<< /Type /Catalog
+/Outlines 2 0 R
+/Pages 3 0 R>>
+endobj
+2 0 obj
+<< /Type /Outlines >>
+endobj
+3 0 obj
+<< /Type /Pages
+/Kids [6 0 R
+]
+/Count 1
+/Resources <<
+/ProcSet 4 0 R
+/Font << 
+/F1 8 0 R >>
+>>
+/MediaBox [0 0 612.0 792.0]
+ >>
+endobj
+4 0 obj
+[/PDF /Text ]
+endobj
+5 0 obj
+<<
+/CreationDate (D:200705130145)
+/Creator (hand_banana.rb)
+/Producer (PDF::Writer for Ruby)
+>>
+endobj
+6 0 obj
+<< /Type /Page
+/Parent 3 0 R
+/Contents [
+7 0 R
+9 0 R
+10 0 R
+11 0 R
+]
+>>
+endobj
+7 0 obj
+<<
+/Length 811 >>
+stream
+
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+BT 297.940 734.440 Td /F1 10.0 Tf 0 Tr (Joe) Tj ET
+0.800 0.800 0.800 RG
+BT 247.169 708.568 Td /F1 12.0 Tf 0 Tr (login time) Tj ET
+BT 309.030 708.568 Td /F1 12.0 Tf 0 Tr (machine) Tj ET
+q
+0.800 0.800 0.800 rg
+242.169 686.508 117.663 15.560 re f
+0.800 0.800 0.800 rg
+242.169 655.388 117.663 15.560 re f
+1 w
+Q
+BT 298.225 636.078 Td /F1 10.0 Tf 0 Tr (Jim) Tj ET
+BT 247.169 610.206 Td /F1 12.0 Tf 0 Tr (login time) Tj ET
+BT 309.030 610.206 Td /F1 12.0 Tf 0 Tr (machine) Tj ET
+q
+0.800 0.800 0.800 rg
+242.169 588.146 117.663 15.560 re f
+1 w
+Q
+BT 287.940 568.836 Td /F1 10.0 Tf 0 Tr (Gregory) Tj ET
+BT 247.169 542.964 Td /F1 12.0 Tf 0 Tr (login time) Tj ET
+BT 309.030 542.964 Td /F1 12.0 Tf 0 Tr (machine) Tj ET
+q
+0.800 0.800 0.800 rg
+242.169 520.904 117.663 15.560 re f
+1 w
+Q
+endstream
+endobj
+
+8 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F1
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+>>
+endobj
+9 0 obj
+<<
+/Length 578 >>
+stream
+
+BT 247.169 690.758 Td /F1 10.0 Tf 0 Tr (11:45) Tj ET
+BT 309.030 690.758 Td /F1 10.0 Tf 0 Tr (soda) Tj ET
+BT 247.169 675.198 Td /F1 10.0 Tf 0 Tr (12:15) Tj ET
+BT 309.030 675.198 Td /F1 10.0 Tf 0 Tr (soda) Tj ET
+BT 247.169 659.638 Td /F1 10.0 Tf 0 Tr (12:45) Tj ET
+BT 309.030 659.638 Td /F1 10.0 Tf 0 Tr (bittle) Tj ET
+0.000 0.000 0.000 RG
+1 w
+242.169 724.440 m
+242.169 655.388 l S
+1 w
+304.030 724.440 m
+304.030 655.388 l S
+1 w
+359.831 724.440 m
+359.831 655.388 l S
+241.669 724.440 m
+360.331 724.440 l S
+242.169 704.318 m
+359.831 704.318 l S
+241.669 655.388 m
+360.331 655.388 l S
+endstream
+endobj
+
+10 0 obj
+<<
+/Length 367 >>
+stream
+
+BT 247.169 592.396 Td /F1 10.0 Tf 0 Tr (9:00) Tj ET
+BT 309.030 592.396 Td /F1 10.0 Tf 0 Tr (kitten) Tj ET
+0.000 0.000 0.000 RG
+1 w
+242.169 626.078 m
+242.169 588.146 l S
+1 w
+304.030 626.078 m
+304.030 588.146 l S
+1 w
+359.831 626.078 m
+359.831 588.146 l S
+241.669 626.078 m
+360.331 626.078 l S
+242.169 605.956 m
+359.831 605.956 l S
+241.669 588.146 m
+360.331 588.146 l S
+endstream
+endobj
+
+11 0 obj
+<<
+/Length 474 >>
+stream
+
+BT 247.169 525.154 Td /F1 10.0 Tf 0 Tr (10:00) Tj ET
+BT 309.030 525.154 Td /F1 10.0 Tf 0 Tr (bittle) Tj ET
+BT 247.169 509.594 Td /F1 10.0 Tf 0 Tr (5:00) Tj ET
+BT 309.030 509.594 Td /F1 10.0 Tf 0 Tr (kitten) Tj ET
+0.000 0.000 0.000 RG
+1 w
+242.169 558.836 m
+242.169 505.344 l S
+1 w
+304.030 558.836 m
+304.030 505.344 l S
+1 w
+359.831 558.836 m
+359.831 505.344 l S
+241.669 558.836 m
+360.331 558.836 l S
+242.169 538.714 m
+359.831 538.714 l S
+241.669 505.344 m
+360.331 505.344 l S
+endstream
+endobj
+
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000079 00000 n 
+0000000116 00000 n 
+0000000258 00000 n 
+0000000287 00000 n 
+0000000398 00000 n 
+0000000485 00000 n 
+0000001348 00000 n 
+0000001455 00000 n 
+0000002085 00000 n 
+0000002505 00000 n 
+
+trailer
+  << /Size 12
+     /Root 1 0 R
+ /Info 5 0 R
+  >>
+startxref
+3032
+%%EOF

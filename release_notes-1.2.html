@@ -1,0 +1,501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Ruby Reports</title>
+  <link href="ruport.css" rel="stylesheet" type="text/css" />
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+  _uacct = "UA-2193841-1";
+  urchinTracker();
+  </script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="mainNav">
+      <ul>
+        <li><a href="ruport.html">Overview</a></li>              
+        <li><a href="examples.html">Examples</a></li>  
+        <li><a href="http://api.rubyreports.org/">API Docs</a></li>
+        <li><a href="http://ruportbook.com">Book</a></li>
+        <li><a href="http://list.rubyreports.org">Mailing List</a></li>
+        <li><a href="resources.html">Resources</a></li>                
+        <li><a href="http://code.rubyreports.org">Development</a></li>   
+      </ul>
+    </div>
+    <div id="logo">
+      <h1><span>Ruport: Ruby Reports</span></h1>
+      <h2>A simple, extensible reporting system built for Rubyists</h2>
+    </div>
+    <div id="mainContent">
+      <h3>Ruport 1.2 Release Notes, 2007.08.28</h3>
+      <p>This release provides a number of enhancements and updates to the 
+        <b>ruport</b> package, the core library for the Ruby Reports project.
+      </p><p>
+        Though we aimed for high backwards compatibility with the 1.0 codebase,
+        there have been some small API changes in places.  These notes will 
+        show these incompatibilities as well as a sampling of the new features
+        we've added.
+      </p>   
+      
+      <h3>Install Instructions: </h3>
+      
+      <p>Ruport and its supporting toolset, ruport-util are packaged as gems,
+        making installation trival: </p>
+      
+      <pre>
+        gem install ruport -y
+        gem install ruport-util -y
+      </pre>   
+      
+      <p>If you're not already familiar with Ruport, you might want to have 
+        a look at some <a href="examples.html">simple examples</a></p>
+     
+      <h3>List of changes: </h3>
+        
+      <p><b>API Breakage</b></p>
+      <ul>
+        <li>acts_as_reportable now uses real association names</li>   
+        <li>Data::Table constructors now yield Data::Feeder objects instead of Data::Table</li>
+        <li>append_hash, append_array, and append_record removed from Data::Table</li>
+        <li>Renderer::Hooks changed signature for renderable_data() to renderable_data(format)</li>
+        <li>Formatter::PDF#draw_text no longer changes the position of the drawing cursor</li>
+        <li>Ruport 0.7 style stage building syntax removed</li> 
+      </ul>   
+        
+      <p><b>Enhancements to existing features</b></p>  
+        <ul>
+        <li>Table#sort_rows_by now allows nil objects and allows 
+            ascending / descending order</li>
+        <li>Table constructors now accept :filters and :transforms Procs</li> 
+        <li>AAR's report_table() now accept :filters and :transforms Procs</li>
+        <li>Grouping constructor accepts :order, and new Grouping#sort_grouping_by method</li> 
+        <li>Formatter::PDF#draw_table now exposes column heading formatting options</li>
+        <li>Renderers can now be passed :file => "somefile.txt" to save output</li> 
+        </ul>
+      
+      <p><b>Brand New Features</b></p>   
+      
+        <ul>
+        <li>Data::Feeder allows for custom transformations and filters on data</li> 
+        <li>Grouping#sigma added (Thanks Dave Nelson)</li>
+        <li>Formatter::PDF#draw_text! will draw text at an absolute position,
+            ignoring margins</li>
+        <li>Formatter::Template provides a simple templating system for 
+            renderer options</li>
+        </ul>
+      
+      <h3>Notes on backwards incompatible changes: </h3> 
+      
+      <p>The following features are not compatible with 1.0, and may cause 
+        problems when running older Ruport code on 1.2
+      </p>                                        
+      
+      <p><b>- acts_as_reportable now uses real association names</b></p>
+      
+      <p>
+      In Ruport 1.0, acts_as_reportable used to do a transformation of model
+      class names to name its associations in report tables.  It now uses
+      the proper association name to qualify attribute names.  This will
+      break any old code that relied on the earlier convention, but eliminates
+      ambiguity issues.
+      </p>
+      
+      <p>
+      For example, say you had two models, Customer and CustomerAddress
+      defined as follows:
+      </p>
+      
+      <pre>
+        class Customer
+          has_many :addresses, :class_name => "CustomerAddress"
+        end
+      
+        class CustomerAddress
+          belongs_to :customer
+        end
+      </pre>
+      
+      <p>If you do:</p>
+      
+      <pre>
+        Customer.report_table(:all, :include => :addresses)
+      </pre>
+
+      <p>
+      Previously, the columns from CustomerAddress would have been qualified as
+      customer_address.attribute_name whereas now, they would be
+      addresses.attribute_name
+      </p>
+            
+      <p><b>- Data::Table constructors now yield Data::Feeder objects</b></p>
+      
+      <p>You may have been using block form table constructors in your report,
+         which look like this:</p>
+         
+      <pre>
+        table = Table(%w[month year]) { |t| t << ["June",2006], ["July", 2007] } 
+        
+        table = Table("foo.csv") { |table,row| table << row }
+      </pre>
+      
+      <p>
+      These were mostly used to build up a table structure from some source data
+      via <tt>Table#<<</tt> within a block local context.
+      </p><p>
+      We have now created a <tt>Data::Feeder</tt> object which allows you to
+      do customized data transformations and filtering.   These new features
+      are described later in these notes, but what is important here is that all
+      Table constructors now yield a Data::Feeder object instead of a Table.
+      </p><p>
+      A default Data::Feeder#<< will behave like Data::Table#<<. so you may not
+      need to modify your code if this is all it needs.
+      </p><p>
+      However, if you need other table methods, you will need to call 
+      Data::Feeder#data to access the table object.  For example:
+      <p>
+      
+      <pre>
+        table = Table(%w[month year]) { |feeder|
+          feeder << ["June",2007]
+          feeder << ["July",2007]
+          @months = feeder.data.column("month")       
+        }
+      </pre>
+      
+      <p>Of course, this change was meant to make life easier, not harder.  See
+        the Data::Feeder examples later in these notes for details.</p>  
+      
+      <p><b>- Renderer::Hooks has changed</b></p>
+        
+      <p>In Ruport 1.0, you could do something like this to tie the formatting
+      system to an arbitrary class.</p>
+      
+      <pre>
+       class MyClass
+          include Ruport::Renderer::Hooks
+          renders_as_table
+          
+          def renderable_data
+            # return some table
+          end
+       end
+      </pre>
+      
+      <p>We've found that sometimes you'll want to do specialized processing
+        of your data based on the intended rendering format without creating
+        a custom formatter object.  To accommodate for this, we've changed the
+        signature of the renderable_data hook to accept a format parameter:</p>
+        
+      <pre>
+        class MyClass
+          include Ruport::Renderer::Hooks
+          renders_as_table
+          
+          def renderable_data(format)
+            # return some table
+          end
+        end
+      </pre>
+      
+      <p>The <tt>format</tt> parameter is simply the format you pass to 
+        <tt>as()</tt> when you are rendering your data.  There is of course,
+        no requirement to make use of the format, it is just there for your
+        convenience.</p>   
+       
+       <p>Because rope previously generated the 1.0 compatible code, this is
+         the source of incompatibility between Ruport 1.2 and any ruport-util
+         release previous to 0.8.0.  If you are not using rope to generate your
+         report classes, you may not need to upgrade ruport-util, though it
+         is probably a good idea to do so anyway</p> 
+          
+      
+      <h3>Examples and discussion of other changes: </h3> 
+      
+      <p>Nearly all of the enhancements to Ruport since 1.0 have been driven
+        by real needs in our work.  Below are some examples which use
+        the new features in 1.2, in no particular order</p>   
+        
+      <p><b>- Simplifying transformations and filters with Data::Feeder</b></p>
+      
+      <p>We often want to constrain our data as it is being aggregated rather
+        than after we've collected it all.  Data::Feeder provides a simple
+        proxy object that allows us to do exactly that.</p>
+        
+      <pre>
+        t = Table(%w[a b c])
+        feeder = Ruport::Data::Feeder.new(t)
+        feeder.filter { |r| r.a < 10 }
+        feeder << [1,2,3] << [9,6,1] << [11,3,2] << [2,1,7]
+        t.column("a") #=> [1, 9, 2]
+      </pre>    
+        
+      <p>You can create multiple feeders over the same source data, and define
+        multiple filters on a single filter. You can also set up filters to
+        work on an initial data set via the Table constructor: </p>
+     
+      <pre>
+        t = Table(%w[a b c], :data => [[1,2,3],[9,6,1],[11,3,2],[2,1,7]],
+                             :filters => lambda { |r| r.a < 10 })
+        t.column("a") #=> [1,9,2]  
+      </pre>   
+      
+      <p>You can also get back a feeder object from the Table constructor and
+      build up your result set iteratively.</p>
+      
+      <pre>
+        t = Table(%w[a b c]) do |feeder|
+          feeder.filter { |r| r.a < 10 }
+          feeder << [1,2,3] << [9,6,1] << [11,3,2] << [2,1,7]
+        end
+        t.column("a") #=> [1,9,2]  
+      </pre>
+      
+      <p>Feeders also provide a way to do transformations on your data:</p>
+     
+      <pre>
+        t = Table(%w[a b c])
+        feeder = Ruport::Data::Feeder.new(t)
+        feeder.transform { |r| r.a = "a: #{r.a}" }
+        feeder << [1,2,3] << [9,6,1] << [11,3,2] << [2,1,7]
+        >> t.column("a")
+        => ["a: 1", "a: 9", "a: 11", "a: 2"]
+      </pre>
+      
+      <p>Like filters, these can be specified via a :transforms option to the
+        table constructor to tranform an initial data set, or used within the
+        block context to alter the data iteratively.</p>
+        
+      <p><b>- Abstract formatting options via Formatter::Template</b></p>
+      
+      <p>Templates are an entirely new feature to Ruport 1.2.  They allow you
+        to define a reusable set of formatting options.  You can create
+        multiple templates with different options and specify which one should
+        be used when output is rendered.</p>
+
+      <p>You define a template by using the <code>create</code> method of
+      	Ruport::Formatter::Template.</p>
+
+      <pre>
+        Ruport::Formatter::Template.create(:simple) do |t|
+          t.page_format = {
+            :size   => "LETTER",
+            :layout => :landscape
+          }
+        end
+      </pre>
+
+      <p>When creating the template, you can specify whatever options you
+        want, but your formatter needs to know what to do with them or else
+        they will just be ignored.  You define an <code>apply_template</code>
+        method in your formatter to tell it how to process the template.</p>
+
+      <pre>
+        class Ruport::Formatter::PDF
+
+          def apply_template
+            options.paper_size = template.page_format[:size]
+            options.paper_orientation = template.page_format[:layout]
+          end
+
+        end 
+      </pre>
+
+      <p>To use a template, just specify it using the :template option when
+      	you render your output.  Note that even if you've defined templates
+      	and set up the formatter to use them, they are still optional.  If you
+      	don't specify a :template option, <code>apply_template</code> simply
+      	won't be called.</p>
+
+      <pre>
+        t = Table(%w[a b c]) << [1,2,3] << [1,4,6] << [2,3,4] 
+        puts t.to_pdf(:template => :simple)  #=> uses the :simple template
+        puts t.to_pdf                        #=> doesn't use a template
+      </pre>
+
+      <p>You can also derive a template from another, pre-existing
+      	template, using the :base option to
+      	Ruport::Formatter::Template.create.</p>
+
+      <pre>
+        Ruport::Formatter::Template.create(:derived, :base => :simple)
+      </pre>
+
+      <p>One thing that the templates have allowed us to do is to
+      	standardize the interface to the different built-in formatters.  Each
+      	formatter has an <code>apply_template</code> method predefined that
+      	will accept a standard set of options.  If, however, you don't like
+      	the predefined set up, it's easy to specify your own interface by
+      	overriding the existing <code>apply_template</code> methods.  This
+      	example shows a number of the options being used.</p>
+
+      <pre>
+        Ruport::Formatter::Template.create(:simple) do |t|
+          t.page_format = {
+            :size   => "LETTER",
+            :layout => :landscape
+          }
+          t.text_format = {
+            :font_size => 16
+          }
+          t.table_format = {
+            :font_size      => 16,
+            :show_headings  => false
+          }
+          t.column_format = {
+            :alignment => :center,
+            :heading => { :justification => :right }
+          }
+          t.grouping_format = {
+            :style => :separated
+          }
+        end
+      </pre>
+        
+      <p><b>- Sorting your Grouping objects</b></p>
+      
+      <p>In Ruport 1.0, Grouping objects were unordered.  Though isn't so much
+        an issue for working with the objects, order often becomes significant
+        in output.  We've provided a few feature enhancements to make this
+        easier.</p> 
+        
+      <p>The most simple case is when you simply want to order your Grouping
+        by the group names.</p>
+        
+      <pre>
+        t = Table(%w[email id])
+        t << ["aaa@aaa.com",1] << ["bbb@bbb.com",4] << ["aaa@aaa.com",3]
+        g = Grouping(t, :by => "email", :order => :name) 
+        g.to_a.map { |name,group| name } #=> ["aaa.aaa.com", "bbb@bbb.com"]
+      </pre>   
+      
+      <p>For more complex situations, you can order by an arbitrary block.  In
+        this example, we sort the groups by their size:</p>
+      
+      <pre>
+        group_size = lambda { |g| g.size }
+        g = Grouping(t, :by => "email", :order => group_size)
+        g.to_a.map { |name,group| name } #=> ["bbb@bbb.com", "aaa@aaa.com"]
+      </pre>
+      
+      <p>You can also sort the groupings after they have been created, see the 
+      sort_grouping_by and sort_grouping_by! methods for details.</p>  
+      
+    <p><b>- Table sorting gets smarter</b></p>
+    
+    <p>In Ruport 1.0, Table#sort_rows_by(col) would throw an error if any nils were
+    encountered.  They are now simply tacked on to the end of a result set by
+    default.</p>  
+    
+    <p>You can also now easily specify the sort order.  If you want to reverse
+    the order of sorting, just use something like this:</p>
+    
+    <pre>
+      table.sort_rows_by(:some_column, :order => :descending)
+    </pre>     
+    
+    <p><b>- Grouping#sigma </b><p>
+      
+    <p>You can now do sums across Grouping objects in the same manner as you
+      do with Tables:</p>
+    
+    <pre>
+      table = [[1,2,3],[3,4,5],[5,6,7]].to_table(%w[col1 col2 col3])
+      grouping = Grouping(table, :by => "col1")
+      grouping.sigma("col2") #=> 12
+      grouping.sigma(0)      #=> 12
+      grouping.sigma { |r| r.col2 + r.col3 } #=> 27
+      grouping.sigma { |r| r.col2 + 1 } #=> 15  
+    </pre> 
+    
+    <p>You can also use sum() instead of sigma(), they do the same thing.</p>
+    
+   <p><b>Easy File Output for Renderers</b></p>
+         
+   <p>We got tired of writing File.open(...), so our formatters now know how
+     to write to file:</p>      
+                                                                          
+   <pre>
+     Table(%w[a b c], :data => [[1,2,3],[4,5,6]]).to_pdf(:file => "foo.pdf")
+   </pre>
+   
+   <p>This doesn't cover absolutely all the changes made in Ruport 1.2, but
+     hits most of the interesting ones.</p>
+   
+      <h3>Project news: </h3>    
+      
+      <p>Over the last few months, we've been busy working on a number of
+        community resources.</p>  
+        
+      <p>We've set up <a href="http://code.rubyreports.org">code.rubyreports.org</a> as a portal for Ruport development, 
+        linking all of our projects and related projects from our contributors.
+        If you're working on a project that is complimentary to Ruport and want
+        to share some of our resources, let us know.</p>
+      
+      <p>The real core of development over the last few months however has been
+        The Ruport Book.  With a large chunk of its content already available
+        online at ruportbook.com, this work represents the most comprehensive
+        and up to date documentation for Ruport, and will give new users a much
+        easier entry point than those who were with us before 1.0</p> 
+        
+       <p>We are self-publishing this work under a Creative Commons license,
+         with printed copies available some time before the end of the year.
+         If you like Ruport and find it helpful, the best way to thank us is
+         to pick up a copy when it is available for sale, or 
+         <a href="http://www.pledgie.com/campaigns/190">donate to the documentation effort</a>.   
+         We will have more details soon, but expect
+         to be taking pre-orders for the printed book in the near future.
+        </p>
+      
+    </div>
+    <div id="secondaryContent">   
+      <h4>Acknowledgements</h4>
+      <p>In addition to Ruport's core team of contributors, the following folks
+        helped make this release possible:</p>
+    
+      <em>
+        Brad Ediger,Gregory Gibson, Imobach González Sosa, Stefan Mahlitz,
+        Jeremy McAnally, Dave Nelson, Emmanuel Oga, Jason Roelofs, Greg Weber       
+      </em> 
+      
+      <h4>Want To Get Involved?</h4>
+      <p>Our community is friendly and helpful, and happy to walk through whatever
+        problems you might be having on <a href="http://list.rubyreports.org">our mailing list</a>.
+        
+      </p><p>If you're more interested
+        in getting involved in development, the resources at <a href="http://code.rubyreports.org">code.rubyreports.org</a>
+        will get you started</p>
+      
+      <h4>Looking For Professional Support?</h4>
+      <p>Gregory Brown and Michael Milner are currently able to help with a small
+        amount of Ruport related consulting and development.  If you're interested
+        in getting some commercial support from the project's lead developers, email
+        <em>jobs at rubyreports dot org</em></p> 
+      <h4>Donations Welcome!</h4>
+      <p>If Ruport is helpful to you, please consider making a donation to the Ruby 
+        Reports Documentation Effort, which is responsible for <a href="http://ruportbook.com">Ruport Book</p>
+            <a href='http://www.pledgie.com/campaigns/190'><img alt='Click here to lend your support to: Ruby Reports Documentation Effort and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/190.png?skin_name=chrome' border='0' /></a>   
+    </div>
+    <div id="footer">
+      <p>
+        Ruby Reports is free software under the 
+        <a href="http://www.ruby-lang.org/en/LICENSE.txt">License of Ruby</a>.
+      </p>
+      <p>
+        Site designed by Michael Milner.
+        Ruport logo designed by 
+        <a href="http://fashionpirat.de/">Daniel Dormann</a>.
+      </p>
+      <p>
+        All web content is licensed under the 
+        <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative 
+        Commons Attribution-Sharealike License</a>.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

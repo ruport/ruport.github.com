@@ -1,0 +1,943 @@
+21:04 <@sandal> Okay, I think we can get started babbling, people can join in 
+if they come in later.
+21:04 <@sandal> just so I know who's here, say hi if you're around
+21:04 < cdcarter> yo
+21:04 < mikem836> hi
+21:04 < Aria> Hey.
+21:05 »» bdelacey [n=chatzill@pool-68-163-202-103.bos.east.verizon.net] 
+has joined #ruport
+21:05 <@sandal> hi bdelacey 
+21:05 < cdcarter> speak of the devil
+21:05 < bdelacey> hi there ...
+21:05 < bdelacey> horns and all
+21:05 < dudleyf> sandal: http://pastie.caboo.se/45203
+21:05 < dudleyf> that took some digging :-)
+21:05 <@sandal> we can get rid of that method_missing hack ;)
+21:05 <@sandal> did you search pastie? ;)
+21:06 < dudleyf> I didn't read it, I just pasted it
+21:06 <@sandal> Okay, dudleyf I have a question for you about that but i'll 
+get back to it
+21:06 < dudleyf> That didn't occur to me until I clicked the paste button :)
+21:06 <@sandal> I think i'm logging right now
+21:06 <@sandal> so if anyone has a problem with that, watch your words. ;)
+21:07 <@sandal> I'm going to mail a transcript since I can never seem to find a 
+time where I don't screw over our European users
+21:07 <@sandal> So here we go.
+21:07 <@sandal> I've updated our roadmap, that'd be a good starting place
+21:08 <@sandal> http://stonecode.svnrepository.com/ruport/trac.cgi/wiki/ProjectRoadmap
+21:08 < bdelacey> nice picture
+21:08 <@sandal> So this is actually about where we're heading and what 
+we've done to date
+21:08 <@sandal> and as soon as i'm done with this little intro, if any of that
+ stuff needs clarification or discussion
+21:08 <@sandal> just pop up and tell me.
+21:08 <@sandal> Is anyone here completely in the dark as far as ruport goes?
+21:09 <@sandal> i.e. never downloaded it, not on the mailing list, etc.
+21:09 <@sandal> if so, our list is at http://list.rubyreports.org
+21:09 <@sandal> which links to other resources.
+21:09 <@sandal> Basically the major news here is that if you are using Ruport 
+from RubyForge
+21:09 <@sandal> I hope you like it.  
+21:10 <@sandal> There won't be any new releases there until 1.0 except for bug fixes
+21:10 < Aria> Never used it, but watching it intently and waiting for time.
+21:10 <@sandal> However, I will have 0.9 on gems.rubyreports.org by the 10th.
+21:10 <@sandal> If you are interested enough to be here
+21:10 <@sandal> I strongly recommend using 0.9 when it comes out
+21:10 <@sandal> It is a hell of a lot better.
+21:11 <@sandal> If you need something that won't change, we'll support 0.8 until
+ just before 1.0
+21:11 <@sandal> So, I think that's enough of an introduction.  
+ If you guys have specific questions you're welcome to ask.
+21:11 <@sandal> Otherwise, we can talk on more general things.
+21:12 <@sandal> mikem836 and dudleyf are here and they'd be the ones to bug on
+ acts_as_reportable
+21:12 < cdcarter> so the lead up to saturday is going to be adding a few more 
+features and bugfixes?
+21:12 <@sandal> for 0.9 ?
+21:12 < cdcarter> yep
+21:13 <@sandal> What's left to be done is the Grouping/Group data structures,
+ and a renderer for them
+21:13 <@sandal> as well as yeah, some minor enhancements
+21:13 <@sandal> 0.9 will *not* lock behaviour
+21:13 <@sandal> So that means we'll be calling something 0.9 that'll change a lot
+21:13 <@sandal> I will probably introduce a 4th version number because of this
+21:13 <@sandal> unless the other devs think that's dumb
+21:13 <@sandal> but example
+21:14 <@sandal> 0.9.0.0 -> 0.9.0.1 #bug fix
+21:14 <@sandal> 0.9.0.1 -> 0.9.1.0 # behavior change
+21:14 < dudleyf> We've already said 0.9 is development
+21:14 <@sandal> it is.
+21:15 <@sandal> I won't branch it
+21:15 < dudleyf> I don't think we need to be that careful about behavior changes
+21:15 <@sandal> I just might want to give numbers that tell people what to expect
+21:15 < dudleyf> I think calling it development is the same as saying
+21:15 < dudleyf> expect every release to change behavior
+21:15 <@sandal> :)
+21:15 < dudleyf> Well, that's what it means to me, anyway ;)
+21:15 <@sandal> The version numbers are for other developers, and contributer,
+ and user clarity.
+21:16 <@sandal> I run trunk, I don't even write down the revision i'm running
+21:16 <@sandal> So I guess ultimately it is up to you guys
+21:16 < mikem836> I run trunk too, so it doesn't matter to me.
+21:17 <@sandal> So, cdcarter et. al, do you think you'd benifit from a 4 number 
+scheme or is it not necessary
+21:17 <@sandal> If it's not necessary, might as well just ignore it.
+21:17 <@sandal> but if it'd help you somehow, It's not a big change.
+21:18 < cdcarter> i don't think it is necessary, and you know i support making 
+0.9 as development, but i think having one or two "0.9.x" release candidates 
+that we announce, when we are closer to a full feature set
+21:18 < cdcarter> well, full being what we want for 1.0
+21:19 <@sandal> I was going to ask for insight on that
+21:19 <@sandal> I will probably use a very high number for that
+21:19 <@sandal> 0.9.98
+21:19 <@sandal> 0.9.99
+21:19 <@sandal> etch
+21:19 <@sandal> *etc
+21:19 <@sandal> That is a ways off.
+21:19 < cdcarter> because having full development is rally good, but we don't
+ want to look dead
+21:19 <@sandal> You mean on RubyForge?
+21:20 < cdcarter> not necessarily, but something we can announce outside of 
+our list
+21:20 <@sandal> hmm.
+21:20 <@sandal> Well I don't know, I think i'll use high numbers on
+ rubyreports.org
+21:20 <@sandal> But that's a ways off.
+21:21 <@sandal> You will not see 1.0 release candidates until late april
+21:21 <@sandal> at the earliest
+21:21 <@sandal> feature completeness != 1.0
+21:21 <@sandal> ;)
+21:21 < cdcarter> yea
+21:21 < cdcarter> when i said full featured, i meant the milestones for 1.0
+21:22 <@sandal> this is getting tricky.
+21:22 <@sandal> I think we're edging to the end of the roadmap
+21:22 <@sandal> the 1.0 milestone will essentially be when our API is stable,
+ well documented, and our performance does not blow.
+21:22 <@sandal> As for the 0.9 milestone, I think i'm keeping it open
+21:23 <@sandal> For a while
+21:23 <@sandal> But here is what's on it now
+21:23 <@sandal> whoops big link
+21:23 <@sandal> let me shorten
+21:23 <@sandal> http://tinyurl.com/2rb2jr
+21:24 <@sandal> we can come back to this versioning stuff, but are we happy
+ with just reserving a couple very high numbers for 1.0 rcs ?
+21:25 < mikem836> That's ok with me
+21:25 <@sandal> dudleyf: ?
+21:25 <@sandal> Aria: i'd be interested in your thoughts as someone who has 
+not used the library yet
+21:26 <@sandal> to entirely split threads
+21:26 < dudleyf> Sure.
+21:26 <@sandal> bdelacey: this probably applies to you as well
+21:26 < bdelacey> um hu
+21:26 <@sandal> as folks just entering into Ruport, what are you look for and 
+what can we do to help make things approachable
+21:26 <@sandal> *looking
+21:28 <@sandal> i'd also like to know whether or not our documentation is useful.
+21:28 < Aria> The dependencies on gems, the seeming intertwinedness with Rails,
+ and the complexity of the PDF examples I found (title drawing took more 
+than the data table!) all scared me
+21:28 < Aria> I dug deeper and discovered this wasn't the case.
+21:28 < Aria> Step-by-step examples would -rock-, building up slowly to see 
+the simplicity.
+21:29 <@sandal> I suppose we really are lacking in those
+21:29 < Aria> Yeah.
+21:29 <@sandal> most of my examples are literally full examples, or terse demos
+21:29 < Aria> I amn't getting a sense from the docs what the edge cases are.
+21:29 < Aria> Yeah.
+21:29 <@sandal> Aria: have you read jh_ 's formatting tutorial
+21:30 < Aria> Um... URL?
+21:30 <@sandal> I think it is along the lines of what you are describing
+21:30 < cdcarter> jh_'s tutorial is very intimidating
+21:30 < Aria> Like, I now can see what it takes to make a PDF with a few rows 
+and columns. Powerful grouping would rock. Something that shows what happens 
+when a report spills onto a second page (PDF) would rock.
+21:30 <@sandal> http://www.yob.id.au/articles/ruport_formatting_system.html
+21:30 < Aria> Yes.
+21:30 < Aria> Just read it an hour ago.
+21:30 <@sandal> It is written against 0.7, that's the problem.
+21:30 <@sandal> The code is updated and included in 0.8 examples/
+21:31 < Aria> That's the one with the scary PDF title function that's longer 
+than the ruport part.
+21:31 <@sandal> :)
+21:31 < cdcarter> I think we need a standard way of describing formatters 
+and stuff, which I know is in the works, and I would love it if I could define 
+a formatter, and do something like MyReport.new(:my_format)
+21:31 <@sandal> Which is much shorter in 0.8
+21:31 < cdcarter> with the new reporter stuff of course
+21:31 < Aria> Ah, cool. See, trying to evaluated base on what I can click a 
+link to leaves me cold on that. put the examples dir up on the site.
+21:31 <@sandal> cdcarter: this is in 0.9 
+21:31 < Aria> Yeah, I was wondering if the same code could be used to make a
+ text table and a PDF table.
+21:32 < cdcarter> sandal: awesome, but how to use it?  That is what is needed,
+ you are rapid fire adding these new features
+21:32 < Aria> (I'd love to have plain-text reports for my bills, and an option
+ for my users to elect to get attached PDFs)
+21:32 <@sandal> Aria: that's probabky a good idea.
+21:32 < cdcarter> and everyone is left in the dust
+21:32 <@sandal> our examples need to be somewhere on a link, not stuck in a gem
+21:32 < Aria> Yeah.
+21:32 < Aria> Indeed. Doubly so since I don't even /use/ gems.
+21:32 < cdcarter> please god yes
+21:32 <@sandal> it's okay for them to be there too, of course.
+21:32 < Aria> Once I know a project is worth using, /then/ I go make RPMs of it.
+21:32 <@sandal> Aria: technically Ruport should run without gems.
+21:33 < Aria> Until then, having to double-un-tar gems just makes me cranky.
+21:33 < Aria> Yeah, the plugin system though.
+21:33 <@sandal> well deal with that!
+21:33 <@sandal> ;)
+21:33 < Aria> But I will be testing that when I get a chance. you'll hear me 
+yell if it doesn't work without gems installed.
+21:33 <@sandal> Or write us something as easy as gem_plugin 
+21:33 <@sandal> :)
+21:33 < Aria> Heh.
+21:33 <@sandal> I want core Ruport to run without gems.
+21:33 < cdcarter> we keep finding problems with gem_plugin, but there is 
+nothign better
+21:33 <@sandal> most of those plugins can easily be de-gemmed
+21:34 < Aria> Mmm. I'll be looking into it.
+21:34 < cdcarter> http://eigenclass.org/hiki.rb?ruby+plugins a good article 
+about writing a plugin system
+21:34 <@sandal> Aria: I think the PDF support is getting much better
+21:34 <@sandal> oh, i remember that
+21:34 < Aria> I've seen /zero/ so far as to what a 'plugin' is, and why a 
+system is needed.
+21:34 < Aria> As opposed to libraries that can just be required.
+21:34 <@sandal> cdcarter: can you go stick that under hacking resource / design 
+documents or wherever we've been putting them
+21:35 <@sandal> Aria: they don't need to be required, that's the thing
+21:35 < Aria> Ah.
+21:35 < cdcarter> I really have to agree with Aria on that, teh auto requires of
+ every plugin installed seems dangerous
+21:35 < Aria> Yeah, it does.
+21:35 < Aria> I tend to micromanage what libraries are loaded, to good effect.
+21:35 < Aria> Because when deploying to many servers, I -really- need a good, 
+easy to find list of what the dependency list looks like, and no trickery.
+21:36 <@sandal> <shrugs> It works.  If zed fixes the locking problem, i'll be happy.
+21:36 < Aria> (I'm big into verifiable software.)
+21:36 < Aria> What locking problem with what?
+21:36 <@sandal> However, I am *not* tied to implementation.
+21:36 <@sandal> I could care less as long as it's trivial to install plugins 
+and their existence is transparent.
+21:37 < Aria> Transparent to what?
+21:37 <@sandal> I just don't have the time to solve that problem because 
+gem_plugin basically works for me
+21:37  * Aria nods.
+21:37 <@sandal> When I have plugins installed, I want them to just work
+21:37 <@sandal> I don't want to require them
+21:37 <@sandal> because then they are libraries
+21:37 <@sandal> not plugins
+21:37 < Aria> Ah. See, I'd rather require them. So I /know/ what software
+ I'm depending on.
+21:37 < cdcarter> that is the magic I love, but I am also scared of them
+21:37 <@sandal> you don't know what you install Aria ?
+21:37 < Aria> I know what I install. I want to know what each app
+ uses individually.
+21:38 <@sandal> Ah.
+21:38 <@sandal> well in the current situation
+21:38 <@sandal> you may do it this way:
+21:38 <@sandal> require "ruport_invoice/init"
+21:38 < Aria> (Because in my current situation, I develop on machines with 
+loaded library sets. Then when I deploy, I deploy to servers that are /bare/)
+21:38  * Aria nods.
+21:38 < Aria> Ooh, an invoice module?
+21:39 < cdcarter> Aria: did you write RQ?
+21:39 <@sandal> perhaps we should encourage people to include a 
+ruport_whatever.rb
+21:39 < Aria> RQ? No. What's that?
+21:39 < Aria> That'd rock.
+21:39 <@sandal> so that their plugins can be used without gem_plugin
+21:39 < Aria> That'd be wonderful.
+21:39 < cdcarter> Aria: some thing for deploying to tons of bareservers with 
+ruby, I will talk to you in #camping about it if you want more info, 
+not cluttering up this log
+21:40 <@sandal> dudleyf, mikem836 thoughts?
+21:40 < Aria> Ah, okay.
+21:40 < cdcarter> I think that rocks as an idea
+21:40 < Aria> Oh, Ara's project. No, not applicable to what I have, really. 
+I've got RPM-based tools that work wonderfully, installing native libs
+ (even the ruby interpreter) if needed.
+21:40 < Aria> Good tool, though, for a cluster.
+21:41 <@sandal> that'd make life pretty easy for people, I guess.
+21:41 <@sandal> you pull from svn or a tarball or whatever
+21:41 <@sandal> and you just package as needed
+21:41 <@sandal> I just don't think this issue is *that* serious
+21:41  * Aria nods. Just bugs me and makes me suspicious. 
+21:41 <@sandal> but that's totally based on my use
+21:42 < Aria> Won't /stop/ me from using a project that otherwise looks great,
+ but I do get uncomfy when installing something can affect software that 
+doesn't mention that thing.
+21:42 <@sandal> But as far as investing time into it, I'm really in a crunch. 
+ I am trying to focus on the 'if this doesn't get fixed kittens will catch fire'
+ kind of problems
+21:43 < Aria> Hell yes
+21:43 <@sandal> worth keeping in mind and I'm open to any patches and suggestions
+21:43 <@sandal> I think dudleyf was the one that made the suggestion to use 
+gem_plugin, but I'm not sure that he's had a chance to use it
+21:43  * Aria nods.
+21:43 <@sandal> Aria: the invoice support is pretty stable
+21:43 <@sandal> it relys on trunk.  Once 0.9 is out in a couple days
+21:44 < Aria> Nice. What's the invoice support do? (What does it add to ruport?)
+21:44 <@sandal> you should be good to go
+21:44 < Aria> Nice. I don't mind doing svn checkouts.
+21:45 < cdcarter> is it a big policy to keep trunk pretty stable, because I know
+ rails had some issues with that in the early days
+21:45 <@sandal> something vaguely like this
+21:46 <@sandal> http://pastie.caboo.se/45210
+21:46 <@sandal> it's messy because I'm pretty much the only one who uses it
+21:46 <@sandal> But it generates fairly pretty invoices
+21:46 <@sandal> Good enough, anyway
+21:47 <@sandal> in PDF form
+21:47 < bdelacey> do the pasties stick around
+21:47 <@sandal> http://stonecode.svnrepository.com/ruport/trac.cgi/wiki/RuportInvoices
+21:47 < bdelacey> even after the chat ends (for the transcript?)
+21:47 <@sandal> Yes, I think so.
+21:47 < bdelacey> nice references ... thanks
+21:47 <@sandal> I should have linked the page i just linked instead of that pastie
+21:48 <@sandal> cdcarter: trunk stability.
+21:48 <@sandal> mikem836, dudleyf do you ever get bitten on trunk?
+21:48 < mikem836> I've never had a problem.
+21:48  * sandal just fixes problems instinctively so I can't really vouch
+ for stability. ;)
+21:49 <@sandal> cdcarter: I think the biggest thing to be aware of is changes
+21:49 <@sandal> moreso than bugs
+21:49 < cdcarter> yea
+21:49 <@sandal> we have a "must have tests before checkin" policy
+21:49 <@sandal> which tends to keep things fairly solid
+21:49 < mikem836> But also, keeping up with development, maybe it's just I know
+ where to avoid problems
+21:49 <@sandal> this is true
+21:49 <@sandal> if something is hot
+21:49 <@sandal> it might break
+21:50 <@sandal> We do coordination more in back channels now
+21:50 <@sandal> and maybe we should be better about that
+21:50 <@sandal> Put more tickets in trac, even when it's just for record keeping
+21:50 <@sandal> things like that
+21:50 < Aria> Wow. That invoice plugin is /hot/
+21:51 <@sandal> it gets the job done.  I have bad eyes, so it could be made 
+more pretty
+21:51 <@sandal> and the interface sorta sucks
+21:51 < cdcarter> ok
+21:51 <@sandal> Aria, i'll release 8Track soon enough
+21:51  * Aria nods
+21:51 <@sandal> it's a camping app that wraps that in a form
+21:51 <@sandal> and actually does a lot more than that
+21:51 <@sandal> it's a time tracking app
+21:52 < Aria> Yeah. I'm using HTML+Markaby right now for invoices. 
+Works, but sucks in some ways. I'd love code that works for PDF and text, 
+and preferably text -and- HTML (multipart emails!)
+21:52 < Aria> Mmm, nice. I'm writing a whole accounting system in Camping
+ (Well, porting from my own homebrew framework)
+21:52 <@sandal> right now the invoice plugin only does PDF
+21:52  * Aria nods
+21:52 <@sandal> it would be very easy to add in additional support
+21:52 <@sandal> and then use Ruport's email support to send text/html
+21:52 < Aria> How does ruport handle multiple formats, anyway?
+21:52 <@sandal> I did write invoice rendering as a renderer/format pair
+21:52  * Aria nods.
+21:53 <@sandal> right now we have the renderers which define the interface
+21:53 < Aria> Interface to what?
+21:53 <@sandal> and format plugins which define the actual rendering process
+21:53 <@sandal> for concepts basically
+21:54 <@sandal> http://stonecode.svnrepository.com/svn/ruport_shards/invoice/lib/ruport_invoice/invoice.rb
+21:54 <@sandal> whoops long link
+21:54 <@sandal> http://tinyurl.com/2jppqn
+21:54 < Aria> I prefer the longer, can see where it's going ;-)
+21:54 <@sandal> You can see there that if you made a new format plugin for
+ the invoice thing
+21:55 <@sandal> it'd retain its api
+21:55 <@sandal> basically
+21:55  * Aria nods.
+21:55 < Aria> Yeah. That looks really sane.
+21:55 <@sandal> It's getting bette
+21:55 <@sandal> *better
+21:56 <@sandal> you can now use multiple formats in the same plugin
+21:56 < Aria> So there's no magic cross-format bullets yet, really.
+21:56 < Aria> But if you don't mind writing a few parts a couple times, 
+it works?
+21:56 <@sandal> yes, and building on top of each other seems to work pretty well
+21:57 < Aria> Good.
+21:57 <@sandal> for instance
+21:57 <@sandal> PDF probably has >20 helper functions now
+21:57 <@sandal> so inheriting from it will gain you a lot
+21:57 <@sandal> also, wrapping other renderers seems to work
+21:57 <@sandal> mikem836: is your group renderer defined to wrap table 
+renderers?
+21:58 < mikem836> Yep - the group body just calls the table renderer
+21:58 <@sandal> Can you pastie that for us?
+21:58 »» zedas [n=zedas@c-24-129-203-141.hsd1.fl.comcast.net] has joined #ruport
+21:58 <@sandal> hey zedas 
+21:58 < zedas> hey folks, did i miss it?
+21:58 <@sandal> Aria: if you want to whine about gem_plugin
+21:59 <@sandal> ;)
+21:59 <@sandal> zedas: we're still going here
+21:59 < Aria> Hehe.
+21:59 < zedas> cool
+21:59 < zedas> if part of that whining is about gems then save it :-)
+21:59 < Aria> To sum um: "*Siiiigh* Gems."
+21:59 < Aria> Done now.
+21:59 <@sandal> talked about a lot of different stuff, but sort of digging
+ into 0.9 formatting system news
+21:59 <@sandal> Aria: we are actively looking for a unified layout system
+21:59 < Aria> Ah, cool!
+21:59 <@sandal> We have no fucking clue how to do it ;)
+22:00 < Aria> Heh. Yeah.
+22:00 <@sandal> It's not on the table, in the sense that it is not part of 
+our 1.0 goals.
+22:00 < Aria> It's not easy. Especially if you're in text only.
+22:00 <@sandal> We want it, we'll do it if we can get it
+22:00 <@sandal> But we can't make it a priority. It's all consuming.
+22:00 <@sandal> hehe
+22:01 < mikem836> Here it is, not finished, but you can see the group body 
+calls the table renderer: http://pastie.caboo.se/45220
+22:01 <@sandal> I am looking for an example of how you can have a single 
+plugin be multi-purpose
+22:02 <@sandal> (format plugin, not gem_plugin)
+22:03 <@sandal> i had one laying around somewhere
+22:03 <@sandal> basically, you can register your plugin to render multiple formats
+22:03 <@sandal> and then just use the format_name as a block
+22:03 <@sandal> so like
+22:03 <@sandal> csv { ... }
+22:03 <@sandal> block will only be run if the plugin is generating CSV
+22:04 <@sandal> so if you've got like a similar process but need to make some 
+tweaks that are specific to a format
+22:04 <@sandal> it seems to be pretty handy
+22:04  * Aria nods
+22:04 < Aria> Makes sense.
+22:04 <@sandal> Here it is, long link first
+22:04 <@sandal> http://groups.google.com/group/ruby-reports/browse_thread/thread/9dff614eae48489d/ae17eff1bb4a90c8?lnk=gst&q=multi+purpose&rnum=1#ae17eff1bb4a90c8
+22:05 <@sandal> http://tinyurl.com/3ag4xn
+22:05 < Aria> Though a way to just automatically raise an exception if it
+ doesn't support the format you ask for. No silent failure.
+22:05 <@sandal> Oh. It doesn't fail silently
+22:06 <@sandal> It raises a NoMethodError
+22:06 <@sandal> see the changeset in that link
+22:07 < Aria> Ah, good.
+22:07 <@sandal> NoMethodError is appropriate, because it's a method_missing hack
+22:07 <@sandal> possibly better would be define_method
+22:07 <@sandal> but yeah, anything that fails silently in ruport should be
+ considered a bug :)
+22:07 < Aria> Though backward is more what I meant: if the thing only does
+ PDF, and you call it in a text context, it just won't do anything, ne?
+22:08 <@sandal> If the thing only does PDF
+22:08 <@sandal> don't register it to handle text
+22:08 < Aria> Ah, okay. So you do have to register it, that's not optional. Good good.
+22:08 < Aria> Very sane.
+22:08 <@sandal> renders :pdf, :for => RendererName
+22:08 <@sandal> this gives you the free interface without doing anything 
+insane to you
+22:09 <@sandal> We love to add convenient meta-ness
+22:09 <@sandal> confusing metaness is usually bad design or a bug, and you're 
+welcome to report it when you see it
+22:09 < Aria> Good good, as long as it's not insane to debug. *casts an evil 
+glare at ActiveRecord, which cost her many hours last night with some
+ silent failures*
+22:09 <@sandal> pretty much *all* of our interfaces support standard calls
+22:09 <@sandal> i.e.
+22:10 <@sandal> Table#to_csv can be written as Table#as(:csv)
+22:10 <@sandal> which can be written as
+ Renderer::Table.render(:csv, :data => my_table)
+22:10 <@sandal> we tend to build the dynamic interface up
+22:11 <@sandal> rather than start with dynamic methods in mind.
+22:11 <@sandal> The innards are pretty well designed.  It's the public API 
+we need to standardize.
+22:11 <@sandal> To completely switch gears
+22:12 <@sandal> mikem836: can you link us to an example of AAR views
+22:12 <@sandal> i wonder if anyone here can give feedback on tha
+22:12 <@sandal> *that
+22:12 < mikem836> let's see - I can link to the mailing list post
+22:13 < mikem836> http://groups.google.com/group/ruby-reports/browse_thread/thread/279776379e8cbda8
+22:13 <@sandal> zedas: did you find the Report class
+22:13 <@sandal> is that what you were asking about before?
+22:13 < Aria> Okey. I gotta go home, but back in a bit.
+22:13 »» Aria [n=aredride@betelgeuse.theinternetco.net] has quit ["Ta!"]
+22:14 <@sandal> cdcarter: have you had a chance to play with the AAR view stuff
+22:14 <@sandal> mikem836: i haven't yet.
+22:14 < cdcarter> I haven't yet, Rack came out and I kind of fell in
+ love with it :)
+22:14 < mikem836> I haven't done anything more with it yet
+22:14 <@sandal> i'm not sure if I understand how this works mikem836 
+22:15 < mikem836> I was hoping to get some feedback before going too far 
+down the wrong path
+22:15 < mikem836> In what way?
+22:15 <@sandal> It seems like you provided some high level functions for 
+generating formatted output
+22:15 < mikem836> Right
+22:15 <@sandal> but I can't see how I'd be able to override those helpers
+22:15 <@sandal> or sort of tie them to either a renderer or a report class 
+or something like that
+22:16 <@sandal> zedas: i'm also curious what you meant by data convertors
+22:16 < mikem836> Well, I basically defined a standard renderer, 
+but was planning to allow it to be overridden with a different renderer
+22:16 <@sandal> Most of the stuff that was in Ruport is still here,
+ we just changed a *lot* of names
+22:16 <@sandal> Hmm, so that renderer could be like a subclass and you could 
+swap them out or something
+22:17 < mikem836> Something like that
+22:17 <@sandal> Do you have a need at work that you could flesh this out onto?
+22:17 < mikem836> Something I didn't mention in the post is that you can define 
+the format in the controller
+22:17 < mikem836> but that doesn't fully work yet
+22:18 < mikem836> which is why I didn't mention it
+22:18 < mikem836> Yea - I can probably use it with my work project and see 
+how it fits
+22:19 <@sandal> I think it might be a little too barebones for people to dig in 
+with feedback
+22:19 <@sandal> I liked the idea looking at the code though
+22:19 < mikem836> true, I can flesh it out a little and then ask for some 
+feedback
+22:20 <@sandal> the problem I am having is mostly that I don't have active rails
+ projects
+22:20 <@sandal> so my views are all in markaby
+22:20 < cdcarter> sandal: it wont be hard to get it on camping
+22:21 < cdcarter> i just dont feel a drive to do it right now
+22:21 < cdcarter> i can point you in the right direction and give links though
+22:21 <@sandal> I don't know if I need it at all in camping.
+22:22 <@sandal> I just run reports directly
+22:22 <@sandal> It doesn't seem to me to be much hard work
+22:22 <@sandal> That's not to say I wouldn't use a shortcut if it were available
+22:22 <@sandal> I'm just not hitting much frictio
+22:22 <@sandal> *friction
+22:22 <@sandal> bdelacey: you still around?
+22:22 < bdelacey> yes
+22:23 <@sandal> If you've got any questions or thoughts, please do share them.
+22:23 < bdelacey> the report layouts links looked good...
+22:23 < bdelacey> The past two weeks I've been working on app
+22:23 < bdelacey> the app is what creates the data for me ...
+22:23 < bdelacey> the next stage is to report on the data ...
+22:23 < bdelacey> so I'll return to using the reporting tools soon ...
+22:24 < bdelacey> and rev the DataDashboard to use more of AAR and Ruport
+22:24 < cdcarter> pretty soon I am gonna make ruport make me pretty pretty props
+ lists and contact sheets, I am excited
+22:24 < bdelacey> As a footnote, I plan a small demo of both at next week's 
+local MySQL meeeting
+22:24 <@sandal> Yeah, if you produce any resources for that, please do share them
+22:24 <@sandal> code samples or slides or whatever
+22:24 <@sandal> it is *great* to get that stuff up on the wiki
+22:25 < bdelacey> I'll make some slides and try to package them nicely ...
+22:25 < bdelacey> the Wiki looks great ...
+22:25 < bdelacey> The JH link 
+(http://www.yob.id.au/articles/ruport_formatting_system.html) is super
+22:25 <@sandal> so i think dudleyf is out, so this question is mostly for you
+ mikem836 but others are welcome to chime in
+22:25 <@sandal> what is our documentation target?
+22:25 <@sandal> We need to maintain the 0.8 API docs
+22:25 < cdcarter> sandal: have you guys thought about setting up some CI?
+ *goes off topic*
+22:25 <@sandal> because incorrect documentation is evil.
+22:25 < mikem836> I'm not sure
+22:26 <@sandal> But I mean, if we're going to produce tutorials and whatnot
+22:26 <@sandal> I am a little afraid to write them against 0.9
+22:26 <@sandal> cdcarter: CI?
+22:26 < cdcarter> i think we should stabalize the API before getting into too 
+much doc stuff *duh*
+22:26 < cdcarter> continous integration
+22:26 <@sandal> Oh, I was looking at cerberus.
+22:26 < cdcarter> you commit, it runs the tests for you, and gives you a nice
+ pretty report and stuff
+22:27 <@sandal> I know what it is
+22:27 < cdcarter> cerberus is weak, and I don't like it, theer is better out there
+22:27 <@sandal> cdcarter: it's easy to set up.
+22:27 < mikem836> Yea - if we're in development mode with 0.9, I think we 
+should wait with documentation
+22:27 < mikem836> Maybe before we do any relase candidates for 1.0
+22:27 <@sandal> This is the thing about CI.  Take a look at Ruport's svn log
+22:27 < mikem836> Get some good tutorials prepared
+22:27 < cdcarter> hudson is pretty hot, and nick seiger wrote a patch that 
+will give JUnit output from test::unit
+22:28 <@sandal> how many committers do you see.
+22:28 <@sandal> :)
+22:28 <@sandal> It seems like it might be 'more effort than it is worth'
+22:28 < cdcarter> very true
+22:28 <@sandal> so something like cerberus would tell us if we broke the build
+22:28 <@sandal> I personally can care less about pretty reports.
+22:28 < cdcarter> haha
+22:28 < cdcarter> sorry, the irony
+22:29 <@sandal> To put it this way, I'm not even sure if cerberus would be
+ worth the effort.
+22:29 <@sandal> Hey man, I'm a plumber. It's up to you guys to build pretty stuff
+22:29 <@sandal> mikem836: The biggest concern I have is that I can count on
+ one hand, two tops
+22:30 <@sandal> how many people deeply know Ruport
+22:30 <@sandal> Now, that's not necessarily a bad thing, most people know 
+enough to do their job
+22:30 <@sandal> and that's more than enough
+22:30 <@sandal> But I want people to *use* 0.9
+22:30 <@sandal> specifically I want people to use it who will dig pretty 
+deep into the system
+22:31 <@sandal> so the question is what kinds of documentation would 
+support that?
+22:31 < mikem836> hmm, tutorials might not do it unless they're really detailed
+22:32 <@sandal> well I'm sort of considering Aria's point
+22:32 < mikem836> But maybe a series of tutorials that look in-depth at 
+specific parts of Ruport
+22:32 »» Aria [n=aredride@acrux.theinternetco.net] has joined #ruport
+22:32 <@sandal> Why do people grok phoenix?
+22:32 < cdcarter> pheonix?
+22:32 <@sandal> Because it's more simple than Alioth?
+22:32 <@sandal> Probably
+22:32 <@sandal> But...
+22:33 <@sandal> Everyone who reads jh's tutorial
+22:33 <@sandal> seems to get the system
+22:33 <@sandal> because it's step by step, explains it in depth
+22:33 < mikem836> right
+22:33 <@sandal> even it being out of date seems to have not made it useless
+22:34 <@sandal> Let me put it this way, I only recently stopped referring
+ to it when doing stuff for $work
+22:34 < mikem836> it helped me a lot
+22:34 <@sandal> And I wrote the damn system
+22:34 <@sandal> hehe
+22:34 <@sandal> So i'm thinking that kind of tutorial might be more of what we need.
+22:34 <@sandal> It's not "Build a blog in 15 minutes"
+22:35 <@sandal> But it's a pretty solid and incremental walk through of a subsystem
+22:35 <@sandal> So maybe a series of articles like that are in order.
+22:35 < mikem836> yeah - so we do something similar for each of the subsystems
+22:35 <@sandal> and we get that one updated.
+22:36 < mikem836> and it might also be good to have a high-level walk through 
+of the whole system
+22:36 <@sandal> I have found that extremely difficult to write.
+22:36 <@sandal> I've tried.
+22:36 <@sandal> This may be because I'm the worst suited for that
+22:37 <@sandal> since obvious parts of the system to me are not going to be
+ obvious to others
+22:37 < mikem836> Maybe just a walk through of a real example
+22:37 < mikem836> from beginning to end
+22:37 < cdcarter> how about a book!
+22:38 <@sandal> cdcarter: you know... there have been suggestions about that.
+22:38 < mikem836> I'll whip that right up
+22:38 <@sandal> I just haven't been able to commit to it because I don't know 
+if it'd work
+22:39 <@sandal> And I also don't know how i'd find all that time.
+22:39 <@sandal> Ruport has funding, but only barely ;)
+22:39 <@sandal> So, if we write against 0.9, mikem836 maybe we can pick things
+ that are unlikely to change in functionality
+22:40 <@sandal> like, our SQL support actually rocks
+22:40 < mikem836> yeah - that sounds good
+22:40 <@sandal> but there is not good thing like 'how to get DBI up and running 
+and do cool shit with this'
+22:40 < cdcarter> because DBI is hard to get up and running :)
+22:40 <@sandal> Exactly.
+22:40 < cdcarter> at least with sqlite3
+22:41 <@sandal> with fucking everything
+22:41 < cdcarter> someone should just take control and maintain it
+22:41 < cdcarter> maybe make a gem!
+22:41 <@sandal> it is a hard project
+22:41 < Aria> It's on my todo list.
+22:41  * cdcarter bows down to aria
+22:41 < Aria> And wyhaines.
+22:42 < Aria> We keep talking about it, in a 'real soon now' sort of way.
+22:42 <@sandal> Aria: i think you said this months ago
+22:42 <@sandal> ;)
+22:42 < Aria> I did, and I'm just now getting to a point where it's looking 
+possible.
+22:43 <@sandal> Right, and Ruport 1.0 was released in May 2006.
+22:43 < cdcarter> haha
+22:43 <@sandal> all kidding aside, it'd be wonderful to see DBI get the 
+love it needs
+22:43 < Aria> Yeh.
+22:44 <@sandal> how can we make these articles really helpful, and also keep
+ them reasonably up to date?
+22:44 <@sandal> I really love the Django book interface
+22:44 < mikem836> I haven't seen that
+22:44 <@sandal> but I don't know if that software is closed
+22:45 <@sandal> http://www.djangobook.com/
+22:45 <@sandal> it allows you to comment on any section
+22:45 < bdelacey> that is nice
+22:46 <@sandal> I'd like to keep going with the wiki linking to blog articles 
+and recipes and little hacks and whatever
+22:46 < mikem836> that looks cool
+22:46 <@sandal> but i do think the biggest appeal to something like jh_'s 
+tutorial is that it is a single, thought out, self contained article
+22:46 < Aria> _mark version numbers on examples_
+22:46 < Aria> So at least one can /see/ if something's old.
+22:47 <@sandal> Aria: it's a good idea.
+22:47 <@sandal> i've been trying to do that with recipes and things like that
+22:47 <@sandal> I wonder if we set up something like manual.rubyreports.org
+22:48 <@sandal> and started actually forming things into chapters
+22:48 <@sandal> if it would appeal to people
+22:48 < cdcarter> don't use heiarki (or however the spell it)
+22:48 < cdcarter> it is really flawed and hasn't been updated in like 2 yars
+22:49 <@sandal> I feel like Trac is serving its purpose
+22:49 <@sandal> But that it has that distictive wiki smell to it
+22:49 < cdcarter> the trac is rockin
+22:49 »» anonymouse23 [n=none@69.0.122.66] has joined #ruport
+22:49 <@sandal> and that smell is "Can't Find Shit"
+22:49 < cdcarter> yea
+22:49 »» anonymouse23 is now known as Dinko
+22:49 < mikem836> I've had trouble finding things at times
+22:49 <@sandal> which is this systematic problem to wikis
+22:50 <@sandal> you can do a lot with them, but they can't serve for 
+conversations, really
+22:50 <@sandal> and they are highly out of sync.
+22:50 <@sandal> I mean, we're more organized than ever
+22:50 <@sandal> but it still sucks
+22:50 <@sandal> (the organization)
+22:50 <@sandal> hi Dinko 
+22:51 < Dinko> hey y'all
+22:51  * Dinko taking notes
+22:51 < cdcarter> content management is a hard thing to do
+22:51 <@sandal> So I was thinking we write a manual, but we write it against
+ development, rather than against stable
+22:51 <@sandal> this will lower our problem of users getting confused by things
+ breaking or whatever
+22:52 <@sandal> Because we'll assume the audience of this 'manual' is people 
+who know Ruport to some extent, or are looking to dig pretty deep
+22:52 < cdcarter> it is hard enough in real life with papers.  I just started 
+rehearsals for a show today, and it was hard enough keeping track of all
+ the policy sheets'
+22:52 <@sandal> hehe
+22:52 < mikem836> and we'll just have to be sure to keep it up to date 
+with development
+22:52 <@sandal> but mikem836 i think you're right about simple tutorials
+22:52 <@sandal> they just won't work
+22:53 <@sandal> We need to wrap concepts, because then interface changes 
+or idioms or whatever are not the primary resource
+22:53 <@sandal> Our opponent (so long as we keep API docs up to date) is
+ not that kind of thing anyway
+22:53 <@sandal> it's the "I don't know how to use the system as a whole" 
+22:53 < mikem836> right
+22:54 <@sandal> Aria: what kind of step by step things do you want to see?
+22:55 <@sandal> oh my god.
+22:56 <@sandal> dream host admin panel now uses a tag cloud
+22:56 <@sandal> Talk about irritating misuse of WebTwoOh
+22:56 < Dinko> haha
+22:56 < cdcarter> ouch
+22:57 <@sandal> What do you guys think of a wordpress instance using pages
+22:57 <@sandal> would that be something that might work?
+22:57 < cdcarter> hrm
+22:57 <@sandal> for a manual pi
+22:57 < cdcarter> what about radiant?
+22:57 <@sandal> *pit
+22:57 <@sandal> Radiant might be a better choice, but I'm not really 
+in the mood for wrangling a rails deploy
+22:58 <@sandal> on a shared dreamhost account
+22:58 < cdcarter> how much is the dreamhost accout?
+22:58 <@sandal> if anyone in this room has money / vps / dedicated hosts
+ they want to throw at me
+22:58 <@sandal> I would be much oblidged
+22:58 <@sandal> I have no idea, 'cheap as shit' comes to mind
+22:59 <@sandal> i can run rails apps there, it's just not fun
+22:59 < cdcarter> i have a vps, that I might be willing to throw on ya
+22:59 < cdcarter> at*
+22:59 <@sandal> we'd really need to not share it with others
+22:59 <@sandal> like, i basically need someone to give us a box
+22:59 <@sandal> That's why I haven't solicited :)
+23:00 < cdcarter> im trying to think, would trac/svn/blog be migrated to it
+23:00 <@sandal> I would like to eventually do that.  But it's
+ not happening within the next 1.5 months
+23:01 <@sandal> i am amazed we can even pretend to have unified URIs
+ at this point :)
+23:01 <@sandal> that's a great leap forward
+23:01 <@sandal> let's talk about this at another time though.
+23:02 < cdcarter> well, for the time being, I can offer you one mongrel
+ process running on a box I use
+23:02 <@sandal> yeah, that's not gaining us anything
+23:02 <@sandal> Radiant is nice, but nothing amazing
+23:02 <@sandal> we use it on GoRuCo's site
+23:03 <@sandal> I do have one click word press
+23:03 <@sandal> It's also not great.
+23:03 <@sandal> but it gets the job done
+23:03 <@sandal> I'm just not sure if that's the right format
+23:04 <@sandal> We need something that we can update with extreme ease
+23:04 <@sandal> really control the organization of
+23:04 <@sandal> have good code formatting
+23:04 <@sandal> and pinpointed feedback
+23:04 < cdcarter> yea
+23:04 < cdcarter> which isn't too easy
+23:05 <@sandal> it's why I haven't focused on producing articles
+23:05 <@sandal> Well, one reason
+23:05 <@sandal> let's pretend we can solve that problem
+23:05 < bdelacey> I have an underutilized DreamHost account
+23:05 < bdelacey> The COS estimate seems about accurate
+23:06 <@sandal> So what *content* do we need
+23:06 <@sandal> mikem836: you seem to have pretty much found your way
+ through almost all of ruport
+23:06 <@sandal> but I'm not sure how you did that ;)
+23:06 < mikem836> reading the api docs
+23:06 < mikem836> so, not generally useful
+23:07 < mikem836> as a tutorial anyway
+23:07 <@sandal> We can just put something on the wiki
+23:07 <@sandal> "Mike read the API docs. You can too"
+23:07 <@sandal> ;)
+23:07 < mikem836> yes!
+23:08 <@sandal> But seriously, especially to those with *less* experience
+ in Ruport, what are key topics we should write in depth on?
+23:09 < mikem836> I think we just take each subsystem and make them chapters
+23:09 < cdcarter> tagging/grouping, formatting
+23:09 < mikem836> data collection
+23:10 <@sandal> Tagging might need to die.
+23:10 <@sandal> Or at least get torn out of the core implementations
+23:10 < Dinko> start with the bare essentials for the newbies I guess...
+ examples are immensely helpful
+23:11 < cdcarter> and, those little number tables are nice,
+ but they make us go whaa?!
+23:11 <@sandal> you mean [[1,2,3],[4,5,6]].to_table(%w[a b c])
+23:11 <@sandal> ?
+23:11 < cdcarter> yea
+23:11  * sandal would need to change his vim macro
+23:12 <@sandal> Nothing like a one button example :)
+23:12 < cdcarter> or Table(%w[a b c]) {|t| t << 1,2,3 << 4,5,6 }
+23:12 <@sandal> Well sometimes I gotta mix it up
+23:12 <@sandal> i even do
+23:12 < Dinko> blocks stab my newbie eyes... j/k
+23:12 <@sandal> Table("a","b","c") << [1,2,3] << [4,5,6]
+23:13 < cdcarter> just do some simple names, and actual data,
+ that people can pasre
+23:13 <@sandal> We do need a up to date data manipulation walkthrough
+23:13 <@sandal> Especially once we have Real Grouping Support
+23:13 < cdcarter> yea
+23:14 <@sandal> Okay, I can take that and a database interaction tutorial
+23:14 <@sandal> and possibly a rope + Report DSL one
+23:14 <@sandal> I think if we have that, combined with an up to date 
+formatting system tutorial
+23:14 <@sandal> we might have a decent base
+23:15 <@sandal> This is my biggest concern
+23:15 <@sandal> we can't standardize the API without putting load on it
+23:15 < mikem836> I can update the formatting system tutorial if jh_ 
+doesn't have time
+23:15 <@sandal> If it's just the devs using our sexy new features
+23:15 <@sandal> we'll hack them however we see fit
+23:15 <@sandal> So we need to find a way to get people to use the stuff, 
+but not in the kind of
+23:16 <@sandal> NoMethodError #=> "I am sad now I will go away"
+23:16 <@sandal> but in the way where people can give us some pretty 
+knowledgable feedback based on actually getting the system
+23:16 < Dinko> aww
+23:17 <@sandal> as far as I am concerned, 0.8 is to be maintained, not developed
+23:17 <@sandal> If people want tutorials and docs on 0.8
+23:17 <@sandal> they are welcome to back port
+23:17 <@sandal> we *will* accept doc patches, encourage people to write stuff, etc
+23:18 <@sandal> but I think that as far as devs and contributors go,
+ we should focus on 0.9
+23:18 <@sandal> is that acceptable to folks>?
+23:18 < mikem836> Sounds good to me.
+23:18 < cdcarter> yea
+23:19 <@sandal> mikem836: we may need an AAR article
+23:19 <@sandal> maybe not in the next few weeks
+23:19 <@sandal> but by Ruport 1.0
+23:19 < mikem836> Sure, I can do that
+23:20 <@sandal> by the way, for folks who are wondering why dudleyf has been
+ quiet lately, he's sort of taking a back seat for now.
+23:20 <@sandal> Ruport ain't something you work on for fun.
+23:20 <@sandal> And he's not actively using it in work, so he's just doing
+ the very important thing of keeping sanity
+23:21 <@sandal> as far as jh_ goes, I think he's busy ;)
+23:21 <@sandal> but none of our devs have died, IIRC
+23:21 <@sandal> :)
+23:22 < zedas> sandal: sorry man i dropped off for a bit
+23:22 <@sandal> oh, np.  we're still talking here
+23:22 < zedas> sandal: basically, pivot tables from excel or tapply from R
+23:22 <@sandal> Oh. Pivots are something I want
+23:23 <@sandal> They might make it in, if I can think of a smart implementation
+23:23 <@sandal> what is tapply?
+23:23 < zedas> tapply is easier to implement, but same idea.  
+taking a normalized long list of columns and converting to a matrix 
+by an applied function
+23:24 <@sandal> interesting, i think i'd need to see an example
+23:24 < zedas> tapply takes one numeric list, and another (or more) 
+non-numeric list, then it applies a function to the numeric list based
+ on grouping
+23:24 < mikem836> http://pbil.univ-lyon1.fr/library/base/html/tapply.html
+23:24 < zedas> an example:  tapply([1,2,3,4,5,6],["a","a","b","b","c","c"], mean)
+23:25 < cdcarter> I gotta jet
+23:25 < cdcarter> night guys
+23:25 < Dinko> good night
+23:25 < zedas> would then take the mean of each a,b,c element
+23:25 »» cdcarter [n=cdcarter@c-75-72-95-22.hsd1.mn.comcast.net] has quit []
+23:26 <@sandal> ooh
+23:26 <@sandal> so 1+2/2, 3+4\2, 5+6\2
+23:26 <@sandal> ?
+23:26 <@sandal> err
+23:26 <@sandal> /
+23:26 <@sandal> is that what that means?
+23:27 <@sandal> or does the mean apply to the whole list
+23:27 < zedas> yeah it makes [["a","b","c"],[1.5,3.5,5.5]]
+23:27 <@sandal> Interesting.
+23:27 < zedas> but, you can also give it a list for the by param, 
+in a data set it might be
+23:28 < zedas> tapply(Age, list(Gender,Hair), sum)
+23:29 <@sandal> this might fit in somewhere.
+23:30 <@sandal> mikem836: is this sparking any ideas for you?
+23:30 <@sandal> Dinko: i'm not sure how you'd fit into this, 
+but it might be a good idea to have you write some newbie 
+oriented documentation at some point
+23:31 < mikem836> it might fit in somewhere with the grouping, 
+but I'll have to think about it
+23:31 <@sandal> Dinko: you'd be the least likely to over-assume 
+user knowledge of the system, since you've been mostly working on the outskirts
+23:31 < zedas> sandal: http://pastie.caboo.se/45242  a quick session
+23:32 < zedas> it makes for simple pivot tables and such, 
+and fits in well with functional languages
+23:32 <@sandal> i'm trying to think how to rubyify this
+23:33 <@sandal> Ruport does allow you to grab column data
+23:33 < zedas> i'd have done it but i got tired today :-)
+23:34 <@sandal> speaking of which, I'm about to fade.
+23:34 <@sandal> i'll be signing off in a few
+23:34 < mikem836> me too
+23:34 < zedas> yeah, most likely you'd collect the numeric 
+elements into a hash=>array
+23:34 < zedas> then call the function on each array
+23:34 <@sandal> I think tapply might be a better method for us 
+to implement than pivot
+23:34 <@sandal> and tapply would allow you to easily enough build pivot
+23:35 <@sandal> we're trying to keep it really nuts and bolts, if we can.
+23:35 < zedas> yep.  anyway, gonna go watch some tv then sleep,
+ but feel free to ask for a crash course in R so you can play with how these work
+23:36 <@sandal> I need to play with R because this shit is too cool
+23:36 <@sandal> ;)
+23:36 < zedas> you should see the graphs :-)
+23:36 <@sandal> So I guess the big news here tonight is that 
+0.9 is going to be our playground for the next month or two
+23:37 <@sandal> We're going to try to make it easy enough for people to get involved
+23:37 < Dinko> aight
+23:37 <@sandal> but 0.8 is 'good enough' for now, and we can 
+even use a little bit of its shortcomings to draw out feedback
+23:38 <@sandal> we need big picture docs
+23:38 <@sandal> and we're going to center them on the sub systems
+23:38 <@sandal> starting with the least volitile
+23:38 < Dinko> mhm
+23:39 <@sandal> we need to find a content management system
+ that won't be a fucking headache
+23:39 <@sandal> i think that's most of what we discussed.
+23:39 <@sandal> mikem836: am i missing stuff?
+23:39 < zedas> i use webgen for mongrel's site
+23:39 < mikem836> no, that sounds like most everything
+23:39 < zedas> screw tons of gear, i generate it offline and 
+push it up with rsync
+23:40 <@sandal> ooh, that looks pretty damn cool zedas 
+23:41 <@sandal> we could even just make it so articles have a link
+ to the mailing list with a special topic or something
+23:41 <@sandal> so feedback gets sent to us that way
+23:41 <@sandal> i'll have to play around with this and see if it does the trick.
+23:42 < zedas> sandal: yep, i do mongrel, rfuzz, and my personal site
+ with it.  hit me up tomorrow and i'll show you the stuff i have.
+23:42 < zedas> night folks
+23:42 »» zedas [n=zedas@c-24-129-203-141.hsd1.fl.comcast.net] has left #ruport []
+23:43 < Aria> I like him. He doesn't screw around.
+23:43 <@sandal> Heh. 
+23:43 < Dinko> was that Zed Shaw?
+23:43 < Aria> Yep
+23:43 <@sandal> we all love Zed Shaw
+23:43 < Dinko> wow
+23:43 <@sandal> ain't that right inky?
+23:43 <@sandal> @zed
+23:43 < mikem836> inky's slow
+23:43 <@sandal> damn. where are my quotes!
+23:43 <@sandal> @zedshaw
+23:43 <@sandal> inkybot: roulette
+23:44 < inkybot> If you can see Zed Shaw, he can see you. If you can't see
+ Zed Shaw you may be only seconds away from death. [score=7.314]
+23:44 < inkybot> If you want a list of Zed Shaw's enemies just check
+ the extinct species list. [score=6.174]
+23:44 < inkybot> sandal: chamber 1 of 6 => +click+
+23:44 <@sandal> there he goes
+23:44 < Dinko> haha
+23:45 <@sandal> I am about to put my head down on the round table and doze off.
+23:45 <@sandal> So I'm going to call it a night
+23:45 < Dinko> alright Lancelot
+23:45 <@sandal> I'll have a transcript + summary out soon
+23:45 < Dinko> koo
+23:45 < mikem836> Yep - I am too - later
+23:45 <@sandal> Please do continue any discussions on the list
+23:45 < Dinko> later all
+23:45 <@sandal> or catch up with us in here.

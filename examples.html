@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Ruby Reports</title>
+  <link href="ruport.css" rel="stylesheet" type="text/css" /> 
+  
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+  _uacct = "UA-2193841-1";
+  urchinTracker();
+  </script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="mainNav">
+      <ul>
+        <li><a href="ruport.html">Overview</a></li>              
+        <li><a href="examples.html">Examples</a></li>  
+        <li><a href="http://api.rubyreports.org/">API Docs</a></li>
+        <li><a href="http://ruportbook.com">Book</a></li>
+        <li><a href="http://list.rubyreports.org">Mailing List</a></li>
+        <li><a href="resources.html">Resources</a></li>                
+        <li><a href="http://code.rubyreports.org">Development</a></li>  
+      </ul>
+    </div>
+    <div id="logo">
+      <h1><span>Ruport: Ruby Reports</span></h1>
+      <h2>A simple, extensible reporting system built for Rubyists</h2>
+    </div>
+    <div id="mainContent">
+      <h2>Examples</h2>   
+      
+      <p>
+      Though the ruport package includes a number of more in depth sample 
+      applications, here a few basic examples and sample reports to give 
+      you an idea of how Ruport works.
+      </p> 
+
+      <a name="csv"><h3>Basic Grouping of CSV data</h3></a>
+        
+      <p>
+      Say you want to load in a CSV from file and group it by people's names,
+      and get a PDF report back.  This is easy in Ruport.
+      </p>    
+                   
+      <p>Below is some sample data: (foo.csv)</p>
+
+<pre>
+  name,login time,machine
+  Gregory,10:00,bittle
+  Joe,11:45,soda
+  Jim,9:00,kitten
+  Joe,12:15,soda
+  Gregory,5:00,kitten
+  Joe,12:45,bittle       
+</pre>  
+
+<p>To do the report we mentioned before, we'd just do something like this:</p>
+
+<pre>
+  t = Table("foo.csv")
+  grouping = Grouping(t,:by => "name")
+  puts grouping.to_pdf
+</pre>      
+
+<p>
+Directing the output of that script to a file results in nice output like this:
+</p>    
+<div align="center">
+  <a href="samples/csv_simple.pdf"><img src="samples/csv_simple.png"></a>
+</div>
+
+<p>
+There are actually several styles for output, and also, it's trivial to do HTML,
+Text, or CSV formatted output as well.
+</p>
+
+<a name="aar"><h3>A trivial dump of an ActiveRecord model to CSV</h3></a>
+
+<p>
+If you're looking to just grab a CSV dump of some model in your Rails app,
+Ruport might be the easiest way to do it.  Just add <tt>require "ruport"</tt>
+in your <tt>environment.rb</tt> file, and then the following code to your 
+model:
+</p>
+
+<pre>
+  class MyModel < ActiveRecord::Base
+    acts_as_reportable
+  end
+</pre>
+
+<p>
+If you want a full dump, just do this:
+</p>
+
+<pre>
+  puts MyModel.report_table.to_csv
+</pre>
+
+<p>
+If you want to reduce via an AR find, you can pass along any of those options
+as well.
+</p>
+
+<pre>
+  puts MyModel.report_table(:all, :conditions => ["name = ?", "gregory"]).to_csv 
+</pre>
+
+<p>
+Ruport can do a whole lot more tricks with ActiveRecord / Rails, including
+handle all types of associations and model methods.  For details, see
+the <a href="http://stonecode.svnrepository.com/ruport/trac.cgi/wiki/ActsAsReportable">
+	 AAR wiki page.</a>
+</p>
+     
+<a name="svg"><h3>SVG Graphs with ruport-util</h3></a> 
+
+<p>
+If you're using the ruport-util package, it's very easy to generate beautiful
+SVG graphs.  The functionality is still a bit basic, but for the most common
+needs, the output is quite nice (Thanks to Scruffy!)
+</p>
+
+<p>
+Here is a trivial graphing example: 
+</p>                                   
+
+<pre>      
+  require "rubygems"
+  require "ruport"
+
+  require "ruport/util"
+
+  class GraphReport < Ruport::Report 
+
+    renders_as_graph
+
+    def renderable_data(format)
+      graph = Graph(%w[a b c d e])
+      graph.series [1,2,3,4,5], "foo" 
+      graph.series [11,22,70,2,19], "bar"
+      return graph
+    end
+
+  end                                
+
+  GraphReport.generate do |r| 
+    r.save_as("foo.svg", :template => :graph)
+  end
+</pre>
+
+<p>The output ends up looking something like this:</p>
+<div align="right">
+	<a href="samples/foo.svg"><img src="samples/graph.png"/></a>
+</div> 
+ 
+<p>
+Of course, if you need to display this easily in a browser, you might want
+to convert it to another format such as PNG or JPG.  You can do this by simply
+changing the extension of your output filename, so long as you have Gruff
+installed.
+</p>
+
+<h3>Enough Flashy Examples for Now</h3>
+
+<p>
+Hopefully we've at least sold you on the <em>idea</em> of using Ruby Reports
+for your project. Still, we'd like to take this chance to remind you that
+the real gains you'll see from Ruport are not at this high of a level, but 
+rather deeper in the trenches.  We're aiming to provide a super light weight
+foundation to build reporting apps on top of, because we feel that's what
+Rubyists will best benefit from.  Hopefully, you'll find that to be true for
+your work.
+</p>
+
+<p>
+If you're convinced and ready to give Ruport a spin, have a look at some of
+the available <a href="resources.html">resources</a>, and then come say hello
+on the <a href="http://list.rubyreports.org">Ruport mailing list</a>.
+</p> 
+
+<p>
+Happy Hacking!
+</p> 
+    </div>
+    <div id="secondaryContent"> 
+  	 <p><a href="#csv">Basic Grouping of CSV data</a></p>
+	 <p><a href="#aar">A trivial dump of an ActiveRecord model to CSV</a></p>
+	 <p><a href="#svg">SVG Graphs with ruport-util</a></p>
+    </div>
+    <div id="footer">
+      <p>
+        Ruby Reports is free software under the 
+        <a href="http://www.ruby-lang.org/en/LICENSE.txt">License of Ruby</a>.
+      </p>
+      <p>
+        Site designed by Michael Milner.
+        Ruport logo designed by 
+        <a href="http://fashionpirat.de/">Daniel Dormann</a>.
+      </p>
+      <p>
+        All web content is licensed under the 
+        <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative 
+        Commons Attribution-Sharealike License</a>.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

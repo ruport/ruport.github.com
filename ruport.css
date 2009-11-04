@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, pre, blockquote, form, fieldset, table, ul {
+  margin: 1em 0;
+}
+
+.clear {
+	clear: both;
+}
+
+img {
+	border: 0;
+}
+
+body {
+  font: 62.5%/1.6 Verdana, "Lucida Grande", "Lucida Sans", sans-serif;
+  text-align: center;
+  min-width: 800px;
+  background-color: #292929;
+}
+
+#wrapper {
+  width: 780px;
+  margin: 0 auto;
+  text-align: left;
+  background-color: white;
+  color: #444;
+  border-left: 2px solid #800000;
+  border-right: 2px solid #800000;
+}
+
+#logo {
+  float: left;
+  width: 100%;
+  border-bottom: 1px dotted #800000;
+}
+
+#logo h1 {
+  float: left;
+  width: 250px;
+  height: 95px;
+  background: url(ruport.png) no-repeat top left;
+  margin: 20px 40px 20px 0;
+}
+
+#logo h1 * {
+  display: none;
+}
+
+#logo h2 {
+  font: italic normal 20pt georgia;
+  color: #7D775C;
+  margin: 20px 20px 20px 0;
+  padding-top: 25px;
+}
+
+#mainContent {
+  width: 520px;
+  float: left;
+  padding: 20px 0;
+  font-size: 1.4em;
+}
+
+#secondaryContent {
+  width: 180px;
+  float: right;
+  padding: 2em 2em 2em 0;
+  font-size: 1.2em;
+}
+
+#mainContent p, #mainContent h2, #mainContent pre {
+  padding: 0 20px;
+}
+
+#mainContent h2, #secondaryContent h2 {
+  color: #c61a1a;
+  font: 16pt georgia;
+}
+
+#mainContent h3 {
+  color: #292929;
+  font: 14pt;
+  font-weight: bold;
+  padding: 5px 20px;
+} 
+
+#mainContent ul {
+	padding: 0 40px;
+}
+
+#footer {
+  clear: both;
+  text-align: center;
+  border-top: 1px dotted #800000;
+  padding: 0.5em 0;
+}
+
+#footer p {
+  margin: 0;
+}
+
+#mainNav {
+  float: left;
+  width: 100%;
+  background-color: #800000;
+}
+
+#mainNav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  float: left;
+}
+
+#mainNav ul li {
+  float: left;
+}
+
+#mainNav ul a {
+  display: block;
+  padding: 0 2em;
+  line-height: 3em;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: #faebd7;
+}
+
+#mainNav ul a:hover, #mainNav ul a:active {
+  text-decoration: underline;
+}
+
+a { 
+	color: #346090;
+}
+
+a:visited { 
+	color: #346090;
+}
+
+a:hover, a:active { 
+	text-decoration: none; 
+	color: #c61a1a;
+}
+
+.badgeLabel {
+  margin: 0;
+}

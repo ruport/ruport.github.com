@@ -1,0 +1,695 @@
+19:47 <@sandal> Yay! My Spamming Works!
+19:47 -!- coop [n=peter@81-86-32-180.dsl.pipex.com] has joined #ruport
+19:47 <@sandal> mike will be here in a couple minutes
+19:47 -!- coop is now known as coops
+19:47 <@sandal> we're mostly going to talk out the existing roadmap and refine it.
+19:48 <@sandal> But we're looking for people to interject and get surly
+19:48 <@sandal> whenever they wanyt
+19:48 <@sandal> *want
+19:48 <@sandal> :)
+19:48  * aeden prepares the surly stick
+19:48 -!- mikem836 [n=chatzill@c-71-224-27-5.hsd1.pa.comcast.net] has joined #ruport
+19:48 < coops> What about snarky?
+19:48 <@sandal> mikem836: I spammed all over, so we've got some angry lurkers to keep us in line :)
+19:48 <@sandal> coops: snarky is fine too
+19:49 < coops> Yeah, I was in the middle of looking at porn on some weird site and a banner flashed up about this. You guys are good.
+19:49 <@sandal> This is necessary though.  100+ changesets a month is probably moving too fast for comfort for a small project :)
+19:50 <@sandal> Especially when we've been silent everywhere except our own list, aside from usual hinting and spamming in RubyTalk posts
+19:50 <@sandal> coops: Sweet!  My Mechanize Script Worked!
+19:51 <@sandal> Here is the current out of date roadmap:
+19:51 <@sandal> http://stonecode.svnrepository.com/ruport/trac.cgi/wiki/ProjectRoadmap
+19:51 <@sandal> We plan to cut away at it tonight, and post a revised one with a closer scale by the 1st
+19:52 <@sandal> I can almost promise the new roadmap will still include stars and clouds
+19:52 <@sandal> gotta keep things whimsical
+19:53 < aeden> so it looks like it's mostly refactoring to standardize the API and deal with performance issues along with documentation work
+19:53 <@sandal> That's what we're thinking, though there are secondary concerns
+19:54 <@sandal> Performance issues are a real problem right now.
+19:54 <@sandal> Stability too.  But we're working on it.
+19:54 < aeden> is it performance during rendering or with data querying?
+19:54 <@sandal> Both :)
+19:55 <@sandal> But it's also heavily dependent on what we're working on.
+19:55 <@sandal> We probably need a benchmark set.
+19:55 -!- TaQ [n=TaQ@201-27-120-189.dsl.telesp.net.br] has joined #ruport
+19:55 <@sandal> thats the kind of stuff we'll be talking about in just a few.
+19:56 <@sandal> aeden: I'm really interested in your project.
+19:56 < aeden> well thanks, the feeling is mutual :-)
+19:56 <@sandal> It wouldn't be something we tied into core, but I want to have this semi-official package called ruport-utils
+19:56 <@sandal> which may well include a gem_plugin that hooks into your stuff
+19:56 < TaQ> hey, I send an email once telling about a report utility I have in PHP but never got an answer ...
+19:56 < aeden> well you know where to find me when you are ready to figure out how to make that happen
+19:57 <@sandal> TaQ: to where?
+19:57 <@sandal> aeden: we're barely keeping our heads above here... but for sure.
+19:57 < TaQ> sandal, good question, let me check
+19:57 < aeden> once again, the feeling is mutual :-)
+19:57 <@sandal> If it went to RubyTalk or RoR.
+19:57 <@sandal> Most of us aren't subbed.
+19:57 <@sandal> I'm subbed to RubyTalk
+19:57 <@sandal> but I only read it occasionally
+19:58 <@sandal> that's why our community involvement has been very quiet lately. :)
+19:58 <@sandal> TaQ: i'm interested though.
+19:58 <@sandal> if you can dig it up, repost to the google group that http://list.rubyreports.org points you to
+19:59 < TaQ> sandal, check this out http://lists.stonecode.org/pipermail/ruport-stonecode.org/2006-August/000274.html
+19:59 < TaQ> I could not find the email but google helped me with that :-)
+19:59 <@sandal> Weird.  You may be the only post I've not responded to.
+19:59 <@sandal> That is our old list but I totally missed it
+20:00 < TaQ> sandal, are you Greg?
+20:00 <@sandal> yes.
+20:00 <@sandal> mikem836: ping.  you here?
+20:00 < mikem836> yep
+20:00 <@sandal> sweet.
+20:00 <@sandal> TaQ: definitely catch up with is some time soon.  The project has changed a lot since August. :)
+20:01 <@sandal> can we get a round of hi's to see who's here
+20:01 <@sandal> ?
+20:01 < Aria> hi
+20:01 < TaQ> sandal, take a look on the PHP thing and if you think that there's something good there my email is there :-)
+20:01 < aeden> hi
+20:02 <@sandal> Alright. Enough that mikem836 and I know we're not talking to ourselves.
+20:02 < TaQ> sandal, do you have a quick tutorial of Ruport now? that time I checked I could not find something about large reports and so on ... and to be honest, I didn't checked it again since then :-p
+20:02 <@sandal> Happy to answer a few questions before we get rolling.
+20:03 <@sandal> http://stonecode.svnrepository.com/ruport/trac.cgi/wiki/TutorialsAndArticles
+20:03 < TaQ> btw, I saw your announce on ruby-talk now that why I came here fast :-)
+20:03 <@sandal> http://tinyurl.com/2wq8u2
+20:03 <@sandal> The long link for Aria :)
+20:04 <@sandal> TaQ: That's the best set of resources I can offer off the top of my head
+20:04 <@sandal> we have other docs plotted that are *much* more comprehensive
+20:04 <@sandal> but they're in the works and written against 0.9
+20:04 < Aria> Hehe, thanks
+20:05 <@sandal> So... anyone got any open questions before we start throwing ideas back and forth?
+20:05 < aeden> none here
+20:05 < coops> a/s/l?
+20:05 < coops> *jk*
+20:05 <@sandal> I think the general plan is to ping pong between mikem836 and I to get the roadmap to be updatted
+20:05 <@sandal> 17/f/NJ
+20:05 < coops> Nice, lol
+20:05 <@sandal> hehe
+20:05 -!- daan_ [i=bushwoel@cp236024-a.gelen1.lb.home.nl] has joined #ruport
+20:05  * Aria laughs.
+20:05 <@sandal> You Love Jersey, coops 
+20:05 < Aria> 25/?/Colorado.
+20:05 < coops> You're so bridge and tunnel
+20:06 <@sandal> hehehe
+20:06 <@sandal> mikem836: pull up http://stonecode.svnrepository.com/ruport/trac.cgi/wiki/ProjectRoadmap
+20:06 <@sandal> it needs some TLC :)
+20:06 < mikem836> ok, got it up
+20:07 <@sandal> anyone out here using / interested in acts_as_reportable ?
+20:07 <@sandal> our ActiveRecord leech
+20:07 < mikem836> definitely needs work
+20:07 <@sandal> it's a good place to start talking about
+20:07 < mikem836> yeah, I'd like to hear opinions on that
+20:07 <@sandal> It was part of Ruport over the summer.
+20:07 <@sandal> But then it became a rails plugin
+20:08 <@sandal> more info here: http://stonecode.svnrepository.com/acts_as_reportable/trac.cgi
+20:08 <@sandal> http://tinyurl.com/36d2t3
+20:08 <@sandal> But we're thinking of moving it *back* into Ruport.
+20:08 <@sandal> Turns out it's tremendously useful in both Camping and on it's own
+20:09 <@sandal> I wasn't using it so I felt like I couldn't maintain it at all, so we moved it out
+20:09 < TaQ> argh, need more time to check out all these things
+20:09 <@sandal> but I'm using it now
+20:09 < Aria> Oh, goodness. Now /that/ is an API that I like.
+20:09 <@sandal> TaQ: This is primarily a dev meeting :)
+20:09 < mikem836> we've been experimenting with plugging it into standalone apps and it's useful
+20:09 -!- derek [n=derek@phx1.redefining-it.net] has quit []
+20:09 <@sandal> So we're thinking it's valuable in core.  I mean, I've used SQLite a lot standalone
+20:09 < TaQ> sandal, I'll take a look on what you dudes talk about and take some notes :-)
+20:10 <@sandal> even just to stick CSVs in it
+20:10 < Aria> Yeah.
+20:10 <@sandal> TaQ: We have roundtable discussions every once in a while
+20:10 <@sandal> And we won't ignore your posts to the new list, promise :)
+20:10 < TaQ> sandal, do you make some announces on the ruby-talk?
+20:10 <@sandal> We make major release announcements
+20:11 < TaQ> well, I'll come back here often as I read about the project :-)
+20:11 <@sandal> http://blog.rubyreports.org/archives/33
+20:11 <@sandal> This explains what we did
+20:11 -!- JEG2 [n=JEG2@ip68-97-89-187.ok.ok.cox.net] has joined #ruport
+20:11 <@sandal> We were getting a ton of feedback, which was awesome
+20:12 <@sandal> but we wanted some quiet to think :)
+20:12 <@sandal> So what we're thinking, back onto acts_as_reportable, is that it'll move into Ruport
+20:12 <@sandal> and be part of 1.0
+20:13 <@sandal> speak now or hold your peace, for better or worse :)
+20:13 <@sandal> The caveat here is what, mikem836 
+20:13 <@sandal> people need to do a require?
+20:13 < mikem836> right, to pull in ruport
+20:14 < aeden> sandal: shouldn't be necessary
+20:14 < mikem836> since it won't be a plugin
+20:14 <@sandal> But the upside is that going into Ruport, it'll follow a release cycle
+20:14 <@sandal> aeden: interesting.  How do we avoid a require?
+20:14 < aeden> well, you could make the plugin extremely lightweight and have *it* require the gem
+20:15 <@sandal> I also don't want to depend on active record.
+20:15 < aeden> then it would just delegate
+20:15 <@sandal> True enough, and that wouldn't need to be updated often
+20:15 <@sandal> mikem836: thoughts?
+20:15 < mikem836> that's a possibility
+20:15 < Aria> Yeah, not depending on AR ++
+20:16 <@sandal> Aria: the way we can do that is how I did it over the summer
+20:16 <@sandal> not put the require for it in ruport.rb
+20:16 < Aria> How's that?
+20:16 < Aria> Yeah, makes sense to me.
+20:17 <@sandal> by the way, did you notice 0.8 no longer auto-forces gem_plugin on you?
+20:17 <@sandal> :)
+20:17 <@sandal> It's a dependency, but I may drop the dependency and just whine if it's not there
+20:18 < Aria> Yaay!
+20:18 <@sandal> http://123.writeboard.com/5a7245f394c396068
+20:18 <@sandal> chunkybacon
+20:18 <@sandal> incase anyone wants to help take notes
+20:18 <@sandal> mainly mikem836 but all are welcome
+20:19 <@sandal> so about acts_as_reportable moving into Ruport
+20:19 <@sandal> I have a couple issues.
+20:19 <@sandal> http://groups.google.com/group/ruby-reports/browse_thread/thread/443f16a85e8adca6
+20:19 < mikem836> tests
+20:20 <@sandal> http://tinyurl.com/3yywhe
+20:20 <@sandal> Tests, yes.
+20:20 < Aria> ++
+20:20 <@sandal> And we might be able to ask some of the rails l33tn355 in here
+20:20 < mikem836> I think #1 and 3 are no problem
+20:21 < aeden> sandal, I think the best approach would be to have AAR remain a Rails plugin but refactor out parts of it which can be used in camping back into the core
+20:21 <@sandal> Don't beat up mikem836 though, he's inherited code that has been through two maintainers first
+20:21 < mikem836> anyone with ideas on how to test this - I was planning on doing mocks, but maybe there's another way?
+20:21 < aeden> to me having a plugin for rails directly is a significant selling point
+20:21 <@sandal> aeden: I think the thing is now, with AAR being mostly data acquisition
+20:21 <@sandal> aeden: I think the thing is now, with AAR being mostly data acquisition
+20:21 <@sandal> it's not rails specific
+20:22 < mikem836> I think we'd have the same functionality either way
+20:22 <@sandal> but a rails plugin could have more railsy stuff
+20:22 <@sandal> maybe work into views, etc
+20:22 < aeden> like view helpers
+20:22 < aeden> :-)
+20:22 <@sandal> I just think it might need to be renamed
+20:22 <@sandal> mikem836 has a branch he wants help with :)
+20:22 <@sandal> (i think)
+20:22 <@sandal> It keeps changing from Hell Yeah to Fuck You
+20:22 <@sandal> Depending on moods
+20:22 < mikem836> or at least people to look at
+20:22 < mikem836> I need to update it first
+20:22 <@sandal> mikem836: I am much more interested in your new approach
+20:23 < mikem836> yeah - the new stuff is looking better
+20:23 <@sandal> his new stuff doesn't try to make your plugins all magic-railsy.  They just provide clean ways to use Ruport's formatters for your rails stuff
+20:23 <@sandal> I think.
+20:23 < mikem836> right
+20:23 -!- proc355 [n=scott@host86-147-55-157.range86-147.btcentralplus.com] has joined #ruport
+20:23  * sandal is lucky to have autonomous co-developers :)
+20:24 <@sandal> so aeden , you're thinking a plugin would be a big win for you
+20:24 <@sandal> is there a big reason why?
+20:24 <@sandal> Aria: i'm imagining you're thing solid AR support that doesn't depend on special systems would be good for you, right?
+20:24 <@sandal> s/thing/thinking
+20:25 < aeden> sandal I'm thinking it would be a big win for Ruport actually...to me Ruport is best-suited to operational reporting, AW is for analytical reporting...having both made popular through acceptance 
+               by the developing Rails community as defacto standards is what I'm looking for
+20:25 < Aria> Yes yes.
+20:25 < Aria> As an avid camper and non-rails user.
+20:26 <@sandal> Aria: that's a mouthful.
+20:26 <@sandal> err
+20:26 <@sandal> aeden: ^
+20:26 <@sandal> :)
+20:26 < aeden> indeed
+20:26 <@sandal> Aria: +1 you're in the same boat as me
+20:26 <@sandal> So aeden, i don't think we mind keeping the rails love in plugin form, but that's up to mikem836 
+20:26 < aeden> bottom line: I don't want to see additional reporting projects coming any time soon...I want our two projects to be strong and attract new developers
+20:26 < Aria> I have no special love of AR, but I have a whole accounting system in Camping/AR
+20:27 <@sandal> Aria: +1. I just depend on it :)
+20:27 < Aria> HEhe, same here.
+20:27 <@sandal> aeden: also +1.  I see some small projects cropping up
+20:27 < aeden> sandal: I will take a look at the new work mikem836 is doing and see if I can provide some thoughts/feedback, whatever
+20:27 <@sandal> and I want to beat those folks up
+20:27 <@sandal> :)
+20:27 <@sandal> Or at least talk to them and be sure effort is not duplicated
+20:27 < aeden> bingo
+20:27 <@sandal> Ruport is meant to be super malleable
+20:27 <@sandal> and it's going to be *light*
+20:27 < mikem836> aeden: give it a couple days, since I haven't committed the recent stuff yet
+20:28 < mikem836> but will soon
+20:28 <@sandal> ruport-utils will probably go heavier and more focused on particular tasks
+20:28 < aeden> mikem836: I can't even find the f'ing repo
+20:28  * aeden fumes
+20:28 <@sandal> but between the two, it should be powerful
+20:28 <@sandal> and we want to support collaboration.
+20:28 < aeden> serious, where the heck is the Ruport repo?
+20:28 <@sandal> I also want to tip my hat to whoever wants to drive once 1.0 is ready :)
+20:28 <@sandal> hehehehe
+20:28 <@sandal> It's a secret
+20:29 < mikem836> aar is http://stonecode.svnrepository.com/svn/acts_as_reportable
+20:29 <@sandal> http://stonecode.svnrepository.com/svn/ruport/
+20:29 < aeden> k, thanks
+20:29 <@sandal> aeden: are you the audience that's pissed we killed the RubyForge mirror?
+20:29 <@sandal> :)
+20:29 < aeden> you killed a rubyforge mirror
+20:29 < aeden> ?
+20:29 <@sandal> We used to mirror svn to rubyforge
+20:29 <@sandal> so our repos was easy to find
+20:29 <@sandal> We killed it
+20:30 < aeden> no, I don't really care
+20:30 <@sandal> Because we basically wanted to force people to talk to us
+20:30 <@sandal> to be honest
+20:30 < aeden> I've got repos all over the place
+20:30 <@sandal> :)
+20:30 <@sandal> Oh, aeden this is what i was going to mention
+20:30 <@sandal> acts_as_reportable can't be a plugin name
+20:30 <@sandal> and a method in Ruport
+20:31 < aeden> really?
+20:31 <@sandal> We already have this insane problem with people thinking chris carter's repackage as a gem
+20:31 <@sandal> is official
+20:31 <@sandal> and telling us acts_as_reportable 0.1.0 is broken
+20:31 <@sandal> and we're like, um.. that doesn't exist
+20:31 <@sandal> So if we maintain an AAR centric plugin, we need to give it a different name
+20:31 <@sandal> I think it makes sense to keep the stuff we have now under the same name.
+20:32 <@sandal> It's entirely a design issue
+20:32 <@sandal> + manageability
+20:32 <@sandal> mikem836: would you support a Rails plugin for AAR with the Rails centric stuff?
+20:32 < mikem836> sure I would
+20:32 <@sandal> so we need to come up with a name.
+20:33 <@sandal> aeden: perhaps we can start by moving AAR into core, giving the plugin a new name, start by just doing the ruport depend and hookup
+20:33 <@sandal> and then let that evolve on it's own
+20:33 < mikem836> unfortunately, acts_as_reportable is the best, most rails-friendly name
+20:33  * sandal groans.  
+20:34 <@sandal> it's true
+20:34 <@sandal> but I want core AAR to be self sufficient too.
+20:34 <@sandal> and I don't want it to have a bad name.
+20:34 <@sandal> :)
+20:34 < mikem836> are you definitely against renaming the core stuff?
+20:34 -!- flgr_ [n=flgr@p54a5e5e9.dip.t-dialin.net] has joined #ruport
+20:34  * sandal doesn't want a *bad* name
+20:34  * proc355 so, if it's called ruport then wtf arent you calling it acts_as_ruportable ???
+20:35 <@sandal> Oh proc355 be careful.
+20:35 <@sandal> :)
+20:35 < proc355> :P
+20:35 <@sandal> Ruport itself is nothing to do with Rails.
+20:35  * sandal cast acts_as_reportable out into the wild.
+20:35 -!- coops [n=peter@81-86-32-180.dsl.pipex.com] has quit []
+20:35 <@sandal> But we're thinking of bringing it back.
+20:36 <@sandal> Because active record support is useful all over the place.
+20:36 <@sandal> mikem836: i'm not against renaming the core stuff
+20:36 <@sandal> mikem836: I just don't want it to have a terrible name
+20:36 < mikem836> yeah, we'd need to think of a good name
+20:36 <@sandal> mikem836: and I don't want an acts_as_reportable project and an acts_as_reportable method
+20:37 < mikem836> definitely not
+20:37 <@sandal> Would people prefer the rails plugin retain it's name?
+20:37 <@sandal> If so, that's okay.
+20:37 < Aria> Why can't you have that as a method name?
+20:37 <@sandal> But you all are responsible for coming up a name for the core stuff I don't hate :)
+20:37 <@sandal> Aria: confusing.
+20:38 <@sandal> It doesn't *seem* worth mentioning
+20:38 <@sandal> but Mike and I deal with the pain. :)
+20:38 <@sandal> Hell, I've been asked a lot of AAR questions and I haven't used it at all until 2 months ago
+20:38 < mikem836> even as it stands there's been confusion
+20:39 <@sandal> Aria: we can have it as a method name.
+20:39 < Aria> Oh. Made perfect sense to me.
+20:39 <@sandal> But I don't want it as a method name in Ruport and also have it as a project name for the plugin
+20:39 <@sandal> I don't want people asking 'oh, why does such and such not work' from the rails crowd
+20:40 < Aria> Oh, I see. Yeah, if the method is in ruport, but the other module .. .yeah.
+20:40 <@sandal> mikem836: can you just make it so Ruport::ActsAsReportable does the include?
+20:40 < Aria> Ugh.
+20:40 <@sandal> Maybe that'd work
+20:40 <@sandal> so we hide the method name in Ruport.
+20:40 <@sandal> but we hide ruport in rails
+20:40 <@sandal> :)
+20:41 <@sandal> Oh no you cant
+20:41 <@sandal> because it takes options
+20:41 <@sandal> okay, we'll put this on the TODO list
+20:41 <@sandal> So it does sound like AAR in Core is all +1s
+20:41 <@sandal> but that we should possibly retain the name for the rails plugin
+20:41 <@sandal> and come up with good names for the core stuff
+20:42 <@sandal> Anyone have any beef with that?
+20:42 < Aria> Not at all. (what about ruport_plugin? Or something more referential?)
+20:42 <@sandal> hmm.
+20:42 <@sandal> ruport_on_rails
+20:42 <@sandal> rofl
+20:43  * Aria grins
+20:43 < Aria> Not terrible!
+20:43 <@sandal> or be mean.
+20:43 <@sandal> rails_on_ruport
+20:43 <@sandal> do what they did to Ruby!
+20:43 <@sandal> :)
+20:43  * Aria grins
+20:43 < mikem836> ha, I llike that one
+20:43 <@sandal> Okay.  Next Question.
+20:43 <@sandal> Is anyone here using 0.9?
+20:44 <@sandal> If not, and you just haven't had time, need, gumption, etc
+20:44 <@sandal> Fine
+20:44 <@sandal> If not, and it's because mike and I have been real assholes with the dev pace
+20:44 <@sandal> tell us!
+20:44 <@sandal> If you didn't know 0.9 existed and is now >200 changesets away from what you can get from rubyforge
+20:44 <@sandal> well, we've really been too quiet :)
+20:45 <@sandal> Thoughts?
+20:46 < Aria> I haven't yet, but it's ENOTIME
+20:46 < Aria> Though I wouldn't have known that 0.9 was a thing without coming here.
+20:46 <@sandal> Hehe.
+20:46 <@sandal> mikem836: do you have like 2-3 lines that'd describe what rocks about it?
+20:47 < mikem836> hmm, 2-3 lines?
+20:47 <@sandal> sure.  Just a quick description
+20:47  * sandal can't do all the pimping of Ruport :)
+20:47 < mikem836> formatting is 1000% times easier
+20:48 <@sandal> yeah.  If you've not used Ruport since before 0.7
+20:48 < mikem836> damn, there's too much to hardly summarize it
+20:48 <@sandal> It makes a *huge* difference
+20:48 <@sandal> if you've tried 0.8
+20:48 <@sandal> It still makes a huge difference
+20:49 <@sandal> the only difference being that our system is 0.7 based
+20:49 <@sandal> we replaced the whole thing during that release
+20:49 <@sandal> We did put 10 hacks up on the blog.
+20:49 <@sandal> http://blog.rubyreports.org/archives/38
+20:49 < mikem836> hte grouping stuff makes a big difference too
+20:49 <@sandal> But it's probably slow.
+20:50 < Aria> As a side note, I would pull every bit of info from the website that links to tutorials for old stuff. It's so confusing to find stuff that doesn't quite work.
+20:50 <@sandal> Aria: if you report those on the list, we'll fix them
+20:50 <@sandal> Here's the issue right now.
+20:50 <@sandal> 0.8 is our stable branch
+20:50 <@sandal> we do support it
+20:50 <@sandal> if you report a bug against it
+20:51 <@sandal> we'll fix it
+20:51  * Aria nods
+20:51 <@sandal> and release maintainence releases.
+20:51 < Aria> I'll be aware and make reports then.
+20:51 < Aria> I'm looking at integrating this stuff into my app this week.
+20:51 <@sandal> We've killed off our forward development on 0.8 though
+20:51 < Aria> (Last week was integrating ActiveMerchant, which, by the way has an ugly API but rocks in function)
+20:51 <@sandal> so we have no interest in producing new docs for it
+20:51 <@sandal> aside from correcting API and stuff
+20:52 <@sandal> All of our efforts are concentrated on 0.9
+20:52 <@sandal> We will slow down soon enough, and even get some 1.0 release candidates out within a few weeks
+20:52  * Aria nods.
+20:52 <@sandal> Aria: you can file defects against the milestone Ruby Reports Documentation Effort
+20:53 < Aria> Alrighty.
+20:53 <@sandal> in Trac.
+20:53 < Aria> Yeh.
+20:54 <@sandal> so 0.9.3 is a cleanup.  
+20:54 <@sandal> we're going to document what we've added
+20:54 <@sandal> refactor some of the scariness, etc
+20:54 -!- derek [n=derek@71-35-18-144.phnx.qwest.net] has joined #ruport
+20:54 <@sandal> hopefully this will help with people using it
+20:55 <@sandal> if I make something like api.rubyreports.org/beta
+20:55 <@sandal> would that be helpful Aria?
+20:55 <@sandal> it'd be API Ref for 0.9
+20:55 <@sandal> or better would be /edge
+20:55 <@sandal> but it'd be up to date API docs built from the latest 0.9 releases
+20:56 <@sandal> I'm not sure if it'd be helpful or not
+20:56 <@sandal> but we want to make 0.9 more accessible to folks
+20:56 <@sandal> I mean, gems *are* available
+20:56 <@sandal> gem install ruport --source http://gems.rubyreports.org
+20:56 <@sandal> I even went through the pain of copying the deps over there
+20:57 <@sandal> not that you care Aria, with your anti gem leanings :)
+20:58 <@sandal> Okay... what else is there.  I'll look at the roadmap, but mikem836 is there anything on the top of your mind?
+20:59  * Aria laughs. I may be using chris2's fromsrc to de-gem things soon. I care, I just dislike ;-)
+20:59 <@sandal> Ooh interesting
+20:59 < mikem836> the rest will be API and performance, I guess
+20:59 <@sandal> We need grouping multi-level rendering
+20:59 <@sandal> I think
+21:00 <@sandal> We haven't quite decided if we care
+21:00 < mikem836> oh, right, for most of the formats
+21:00 <@sandal> our grouping rendering stuff works good for single level stuff
+21:00 <@sandal> we implemented multiple styles for a number of the formats
+21:00 <@sandal> and again, we view our formats as bases, not as 'hey, here's ya damn report'
+21:01 <@sandal> Oh mikem836, we need to identify and add helpers to the formats, right?
+21:01 <@sandal> So that we can actually use them as bases?
+21:01 <@sandal> :)
+21:01 < mikem836> right
+21:01 <@sandal> (we've done that for some but not all.  PDF is really good for this)
+21:02 <@sandal> we need to decide by the 1st if we're planning on supporting multi-level rendering or not
+21:02 <@sandal> At least as a primary goal
+21:02 < mikem836> anyone have thoughts on that?
+21:03 <@sandal> Yeah, if it's YAGNI
+21:03 <@sandal> I rather not have to support it:)
+21:03 <@sandal> (officially)
+21:03 < mikem836> I agree, it complicates our standard formatters
+21:04 <@sandal> Our standard formatters need some serious refactoring though.
+21:04 < mikem836> true
+21:04 <@sandal> They're useful, but their code sucks. :)
+21:04 <@sandal> Oh.  we need to decide about this too...
+21:04 -!- daan_ [i=bushwoel@cp236024-a.gelen1.lb.home.nl] has quit [Read error: 110 (Connection timed out)]
+21:04 <@sandal> we've got the 'all in one basket options'
+21:05 <@sandal> Which contrasts from 0.9
+21:05 <@sandal> err
+21:05 <@sandal> 0.8
+21:05 <@sandal> Where you had two types of options
+21:05 <@sandal> layout options and general options
+21:05 <@sandal> so you'd layout.table_width
+21:05 <@sandal> but something like
+21:05 <@sandal> options.number_of_kittens
+21:06 <@sandal> in 0.9
+21:06 <@sandal> it's all in options
+21:06 < mikem836> I prefer the all-in-one options
+21:06 < Aria> Nice, nice.
+21:06 <@sandal> Aria: the kittens?
+21:06 <@sandal> :)
+21:06 < Aria> No, kittens are mean little bastard. They pretend to be fluffy and instead they're all pointy.
+21:06 <@sandal> Rofl
+21:07 <@sandal> so Aria you prefer an all in one approach?
+21:07 < Aria> I do.
+21:07 < mikem836> to me, it's too fine of a line to think if it's a layout option or something else
+21:07 < Aria> Very nice.
+21:07 <@sandal> That's the trouble we ran into
+21:07 <@sandal> I also like the camping analogue to like the posted values
+21:07 < Aria> Yeah, and I'm fuzzier on the API still -- 'layout' 'renderer' 'table' ... gets fuzzy fast.
+21:08 <@sandal> Yes, it's more simple in 0.9
+21:08 <@sandal> Renderer, Formatter
+21:08 <@sandal> A Renderer is an interface definition.
+21:08 <@sandal> Like a Controller
+21:08 <@sandal> A Formatter implements formats
+21:08 <@sandal> and we make that much nicr
+21:09 <@sandal> *nicer
+21:09 <@sandal> renders :pdf, :for => MyRenderer
+21:09 <@sandal> The benefit here is all of your Formatters tied to your renderer can use the same interface
+21:09 <@sandal> *all* of our datastructures have default renderers / formatters
+21:10 <@sandal> which allow you to just do
+21:10 <@sandal> table.to_pdf
+21:10 <@sandal> row.to_csv
+21:10 <@sandal> group.to_html
+21:10 <@sandal> etc
+21:10 <@sandal> We're pretty sold on the notion of this rocking
+21:10 <@sandal> but if you don't like the dynamic stuff
+21:11 <@sandal> group.as(:html)
+21:11 <@sandal> works just as well
+21:11 <@sandal> mikem836: maybe we should stick as() in a module
+21:11 <@sandal> and the method_missing hack maybe in a class_method invoked adder
+21:11 <@sandal> *class method
+21:11 <@sandal> so that someone can do something like
+21:12 <@sandal> include Ruport::RendererInterface
+21:12 <@sandal> in a custom data structure
+21:12 <@sandal> and get our hookups for free
+21:12 < mikem836> that sounds like a good idea
+21:12 <@sandal> it's easy, right, since they're all just (:data => self).merge(options)
+21:12 < mikem836> yeah
+21:13 <@sandal> then we could just add Report's renders_with as a method
+21:13 <@sandal> class MyDataStructure
+21:13 <@sandal>   include Ruport;:RendererInterface
+21:13 <@sandal>   renders_with MySuperFunkyRenderer
+21:13 <@sandal> end
+21:13 <@sandal> a = MyDataStructure.new
+21:13 <@sandal> a.to_html
+21:14 <@sandal> (so long as the above mentioned renderer knows how to deal)
+21:14 < mikem836> yeah, I think that'd be useful
+21:14 <@sandal> if nothing else, it'd be a big refactoring win internally
+21:14 < mikem836> right
+21:15 <@sandal> maybe *not* do the method_missing hack by default
+21:15 <@sandal> that can be messy
+21:15 <@sandal> but definitely add as()
+21:15 <@sandal> and give the option of an easy way to get the hack if you want it
+21:15 <@sandal> (maybe)
+21:15 <@sandal> if we say YAGNI on that, it's okay too
+21:15 <@sandal> Maybe it is YAGNI
+21:15 <@sandal> "If you don't know what dynamic methods are, you shouldn't be playing with them"
+21:15 <@sandal> :)
+21:16 < mikem836> probably so, as() should give them what they need
+21:16 < JEG2> I don't get too scare of method_missing() things like to_*() methods.  I feel the risk is low there.
+21:16 <@sandal> JEG2: dynamically adding it though?
+21:17  * sandal wonders if that's getting up in the users grill
+21:17 <@sandal> but maybe if we just added
+21:17 <@sandal> renders_with MySuperFunkyRenderer, :shortcuts => true
+21:17 < JEG2> sandal: You lost me there.  It adds them dynamically?
+21:17 <@sandal> that'd solve all issues
+21:17 <@sandal> We're talking about building a module
+21:18 <@sandal> that'd let people use our formatting system with their custom structures
+21:18 <@sandal> (or at least simplify things for us)
+21:18 <@sandal> we are debating whether or not we should add the to_format convenience
+21:18 <@sandal> We're pretty sure it's not a good idea by default
+21:18 <@sandal> but we're considering an option for it
+21:18 <@sandal> Thoughts?
+21:18 < JEG2> Well, it's not like it would clobber their own to_*() methods.  What's the downside?
+21:19 <@sandal> It'd clobber their method_missing
+21:19 <@sandal> we could alias_method though
+21:19 <@sandal> I guess
+21:19 <@sandal> i think as an option it might be just fine
+21:19 <@sandal> but by default might be evil
+21:21 <@sandal> mikem836: what do you think?
+21:21 < mikem836> I think an option is better
+21:21 <@sandal> and JEG2 does it change things that it risks blowing up their hook, or can you think of a clever way to not have that happen?
+21:24 <@sandal> mikem836: we're sold on the refactor at minimum, hopefully making it useful for users, too, right?
+21:24  * JEG2 pasted http://pastie.textmate.org/49959
+21:24 < mikem836> definitely the refactor
+21:25 < JEG2> I'm not seeing the clobbering.
+21:25 < JEG2> ?
+21:25 <@sandal> okay JEG2.
+21:25 <@sandal> you've got a class called CrackRock
+21:25 <@sandal> and it's got a method_missing hack in it
+21:26 -!- TaQ [n=TaQ@201-27-120-189.dsl.telesp.net.br] has quit ["Gone!"]
+21:26 <@sandal> and then you include our module because you want autohooks for a renderer you've built, or a default renderer
+21:26 <@sandal> this class is in no way tied to Ruport, it's just your own class that you presumably can render with a ruport renderer or custom renderer
+21:26 <@sandal> so we give you a module
+21:27 <@sandal> that gives you a method as()
+21:27 <@sandal> after you tell it which renderer you're using
+21:27 <@sandal> we want to give you to_* as well
+21:27 <@sandal> but we're afraid of clobbering your method
+21:27 <@sandal> if we mess with method_missing via a module
+21:27 <@sandal> we'd be redefining your method
+21:27 <@sandal> or no?
+21:28 <@sandal> I can work up an example of this and get it out to you, unless it's immediately obvious
+21:28 < JEG2> sandal: Ah, so you dynamically define method_missing()?
+21:28 <@sandal> Right :)
+21:28 < JEG2> I think I get it now.
+21:28 <@sandal> We are deciding if that would be absolutely bad ruby citizenship
+21:28  * sandal thinks YES
+21:28 < JEG2> sandal: However, I seriously doubt that is needed.
+21:28 <@sandal> ooh. this is a good point!
+21:28 <@sandal> we could do Renderer.formats
+21:28 < JEG2> Yes, it would be bad.
+21:29 <@sandal> and define the methods to_format for each
+21:29 <@sandal> and if you built custom methods
+21:29 <@sandal> well fuck, who cares?
+21:29 <@sandal> right?
+21:29 < JEG2> Better would just be to have the module's method_missing() smart enough to work on the caller.
+21:29 <@sandal> eeeeevil :)
+21:29 <@sandal> I like it though
+21:30 <@sandal> mail me an idea. 
+21:30 < JEG2> sandal: What happens if you call as() with an illegal format?
+21:31 <@sandal> mikem836: how much bandwidth do you have left.  I think there are some things left to think about, but if you're fading, we can do another meeting later
+21:31 <@sandal> if you're fresh, we can just pull an ironman and get it all sorted out
+21:31 <@sandal> :)
+21:31 <@sandal> JEG2: let me find out
+21:31 < mikem836> I can hang on for a while
+21:31 <@sandal> Which brings me to what would have been my next question
+21:31 <@sandal> Ruby Standard Errors or Custom errors?
+21:31 <@sandal> Right now, Ruport gives you whatever error you hit when things break... basically fall off the edge
+21:32 <@sandal> we want to refine it so everything gives back good errors
+21:32 <@sandal> but we haven't decided whether to use the standard set or just use
+21:32 <@sandal> class RuportCustomErrorForSomething < RuntimeErrror
+21:33 <@sandal> Oh yeah JEG2
+21:33 <@sandal> you just found a dirty spot
+21:33 <@sandal> >> [].to_table.as(:jeg2)
+21:33 <@sandal> NoMethodError: undefined method `new' for nil:NilClass
+21:33 < JEG2> Ruport is probably big enough to benefit from it's own error tree, I think.
+21:34  * JEG2 laughs.
+21:34 < JEG2> Nice.
+21:34 <@sandal> http://stonecode.svnrepository.com/ruport/trac.cgi/ticket/196#preview
+21:35 < JEG2> method_missing() body:  as(meth.to_s.sub(/\Ato_/, "")) rescue super
+21:35 <@sandal> that's the wrong place in MRI, no?
+21:36 <@sandal> Oh, nope!
+21:36 <@sandal> http://pastie.caboo.se/49963
+21:37 <@sandal> mikem836: So can you dig our own custom Error system
+21:37 <@sandal> now JEG2 do you recommend single root divergence from Ruby?
+21:37 <@sandal> or 'as close as we can get'
+21:37 <@sandal> i.e.
+21:37 < mikem836> sure, I can dig that
+21:38 <@sandal> SomeBadFormatArg < ArgumentError
+21:38 <@sandal> rather than RuntimeError
+21:38 -!- proc355 [n=scott@host86-147-55-157.range86-147.btcentralplus.com] has quit [Client Quit]
+21:38 < JEG2> sandal: Single root.  This allows users to rescue Ruport errors only.
+21:39 <@sandal> okay. I think that might simplify things
+21:40 <@sandal> This is really going well.
+21:40 <@sandal> mikem836, i'm not sure you were here when I mentioned this
+21:40 <@sandal> for performance, we really need a bench suite
+21:40 <@sandal> JEG2: you had asked for that a while ago
+21:41 <@sandal> When you were hacking on the query stuf
+21:41 <@sandal> *stuff
+21:41 <@sandal> any sexy ideas on what we can do with that stuff?
+21:41 < mikem836> yeah, I was here for that - I agree
+21:42 < JEG2> Hmm, not really.  I just felt the need.  :)
+21:42 <@sandal> I was thinking we could build a script people could run that actually gave them a little interface
+21:42 <@sandal> like
+21:42 <@sandal> ruport_bench --renderer-benchmarks
+21:42 <@sandal> and maybe even format the output using Ruport itself, with times for a series of benchmarks :)
+21:43 <@sandal> and then add like a report thing or something that'd allow them to submit reports to us
+21:43 <@sandal> we can go with KISS too
+21:43 <@sandal> and just stick a benchmarks/ folder in svn
+21:43 <@sandal> my interest in the former is it seems like it'd encourage more people to try it out
+21:43 < Aria> ++
+21:44 < aeden> it would be good to be able to run the benchmark with alternate data sets...for larger data sets as an example
+21:45 < aeden> eh
+21:45 < aeden> maybe not
+21:45 < aeden> ignore me...I know what I want but I don't think the benchmark is the place for it
+21:45 <@sandal> aeden: I hear you there.  I don't suspect that'd be hard.
+21:45 <@sandal> like i'll probably just have a samples/ dir
+21:45 <@sandal> and you could replace them
+21:46 <@sandal> but we'd be interested in standardized output
+21:46 < aeden> need water...brb
+21:46 <@sandal> So you guys are in on an accessible benchmark tool?
+21:46 <@sandal> I mean... this is a reporting system.  It feels a bit like yak shaving to build that, but performance does matter
+21:47 <@sandal> mikem836: inside or outside of Ruport?
+21:48 <@sandal> preferably, this would be just a single script
+21:48 <@sandal> runnable with ruby ruport_bench.rb
+21:48 <@sandal> (i'm thinking)
+21:48 < mikem836> yeah, I think we could do it inside
+21:48 <@sandal> just stick it in bin/
+21:48 <@sandal> next to rope
+21:48 <@sandal> i guess
+21:48 < mikem836> would probably get more use that way
+21:50 <@sandal> it'd be nice if we could get a pretty report out of it
+21:50 <@sandal> then we're getting a ruport demo at the same time
+21:50 <@sandal> and if we did text + html
+21:50 <@sandal> we could have the text format attachable for posting to the ruport list or in bug reports
+21:51 <@sandal> Aria: unrelated, we're creating ruport-utils which will probably *not* be gem_plugins
+21:51 <@sandal> we're going to let
+21:51 < Aria> Nice.
+21:51 <@sandal> require "ruport_utils"
+21:51 <@sandal> pull the whole boat in
+21:51 <@sandal> require "ruport_utils/invoice"
+21:51 <@sandal> grab just the invoice, etc
+21:52 <@sandal> now we'll probably haxor around this by scripting rope to let you add a number of utils via rake or something 
+21:52 <@sandal> rake use_utils
+21:52 <@sandal> rake use_utils only="invoice"
+21:52 <@sandal> rake use_utils except="graph,report_manager"
+21:52 <@sandal> something along those lines
+21:53 <@sandal> but by default, this would all be vanilla ruby requires
+21:53 <@sandal> so we wouldn't stir your KoolAid unless you asked us to :)
+21:54 <@sandal> Oh, and JEG2 
+21:55 <@sandal> Release Fucking GhostWheel
+21:55 <@sandal> So it can be part of the utils package without pain
+21:55 <@sandal> :)
+21:55  * JEG2 laughs.
+21:55 <@sandal> You bought a logo for it.
+21:55 <@sandal> And then went to disney land
+21:55 <@sandal> we all want to be rock stars, you know
+21:55 <@sandal> :)
+21:56 <@sandal> JEG2 wrote a very cool packrat parser with Ruport in mind, but hasn't released it yet, for folks wondering :)
+21:56 <@sandal> mikem836: Are we falling off the edge now?  I think we're pretty covered.
+21:57 < JEG2> I'll release it fairly soon.  One last layer to finish, then it will be ready.
+21:57 < mikem836> yeah, I think so too
+21:57 <@sandal> JEG2: sweet.
+21:57 <@sandal> Okay.  Before the beer I've been drinking sets in... does anyone have any thoughts, questions, surly comments, etc?
+21:58 <@sandal> hehe. I am the top of professional.
+21:58 <@sandal> :)
+21:59 <@sandal> so mikem836, time to close things up for now?
+22:00 < mikem836> sounds like it
+22:00 <@sandal> Thank you all for your feedback
+22:00 < aeden> mikem836: when should I look at the AAR repo for your updates?
+22:00 < mikem836> I should be able to update it tomorrow
+22:00 < aeden> k
+22:00 <@sandal> We've done more fragmenting
+22:00 <@sandal> By the way
+22:01 <@sandal> So if Ruport became an 'insiders group'
+22:01 <@sandal> a month or so ago
+22:01 <@sandal> it's now ultra insiders :)
+22:01 < mikem836> aeden: by the way, the new stuff is in a branch
+22:01 <@sandal> Our dev list is here:
+22:01 <@sandal> http://groups.google.com/group/ruport-dev
+22:01 <@sandal> we're moving conversations like the one we just had over there
+22:02 <@sandal> because we want the main list to be more friendly to end-users
+22:02 <@sandal> and be more high level discussions
+22:02 < aeden> mikem836: aar_views?
+22:02 < mikem836> yep
+22:02 < aeden> k, will check tomorrow afternoon
+22:02 <@sandal> The list i just linked, you can't lurk on publicly :)
+22:02 < aeden> I'm flying to Norfolk at 6 PM
+22:02 < mikem836> cool, any ideas will be welcome
+22:02 <@sandal> but mikem836 and I plan to post some design stuff up there, so it'll give you a chance to keep us in check :)
+22:03 <@sandal> mikem836: I'll post a transcript, but could you possibly write a summary from tonight some time tomorrow?
+22:03 <@sandal> or in the next 2 days ish
+22:03 < mikem836> sure, no problem
+22:03 < aeden> good night all
+22:03 -!- aeden [n=aeden@66-168-119-79.static.oxfr.ma.charter.com] has quit []
+22:04 <@sandal> mikem836: set up a collab doc on gmail and hit me up with a link
+22:04 <@sandal> I'll help out if i can tomorrow
+22:04 <@sandal> but i'm fried tonight :)
+22:04 <@sandal> This was really a great meeting
+22:04 <@sandal> once we get transcript / summary up on the list
+22:04 < mikem836> ok - I won't start on it tonight either, I'm fried too
+22:04 <@sandal> everyone's free to continue discourse there
+22:05 <@sandal> right, no rush.  Tomorrow night would be when I poked at it :)
+22:05 <@sandal> G'night all... thanks!
+22:05 < mikem836> good night

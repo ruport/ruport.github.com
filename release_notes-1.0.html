@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Ruby Reports</title>
+  <link href="ruport.css" rel="stylesheet" type="text/css" />
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+  _uacct = "UA-2193841-1";
+  urchinTracker();
+  </script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="mainNav">
+      <ul>
+        <li><a href="ruport.html">Overview</a></li>              
+        <li><a href="examples.html">Examples</a></li>  
+        <li><a href="http://api.rubyreports.org/">API Docs</a></li>
+        <li><a href="http://ruportbook.com">Book</a></li>
+        <li><a href="http://list.rubyreports.org">Mailing List</a></li>
+        <li><a href="resources.html">Resources</a></li>                
+        <li><a href="http://code.rubyreports.org">Development</a></li>   
+      </ul>
+    </div>
+    <div id="logo">
+      <h1><span>Ruport: Ruby Reports</span></h1>
+      <h2>A simple, extensible reporting system built for Rubyists</h2>
+    </div>
+    <div id="mainContent">
+      <h2>After 21 months, Ruport 1.0 is now ready!</h2>      
+      <h3>Background Information</h3>     
+      <p>If you're not familiar with our project at all, you might want to
+	quickly glance over the <a href="ruport.html">Overview</a> and 
+	<a href="examples.html">Examples</a> pages before continuing on.</p>
+	  
+	<p>
+	Even if you've used ruport before, you might have noticed our goals
+	have evolved over time, but we've finally found an objective we think
+	clearly expresses what we're trying to do:
+	</p>                                      
+	
+	<p><em>
+    The Ruby Reports project is dedicated to making your business reporting 
+	life suck less (through ruby).</em></p>
+	
+	<p>
+	Right now the project consists of three initiatives:
+	</p>
+	
+	<p>
+	<ul>
+		<li>ruport : simple foundational system for reporting apps</li>
+		<li>ruport-util : A set of reporting extras for ruport</li>
+		<li>acts_as_reportable : Rails integration with Ruport</li>
+	</ul>
+	</p>
+	
+	<p>As of 2007.05.15, we can say with some confidence that the first of our
+		three projects has become mature enough to be quite useful.  Ruport
+		is already being used for real work, and though it is a simple system,
+		it has been quite handy in practice.</p>   
+		
+	<h3>What's different about 1.0?</h3>
+	 
+	<p>If the last time you looked at Ruport was version 0.8 or earlier, you're
+		in for a surprise!  Our formatting system has been enhanced in a 
+		number of ways to make it quite extensible.  We also now have support 
+		for row based rendering, data grouping (and rendering), and other things
+		that have been on the to do list for so long.</p>
+	
+	<p>If you've been following the project tightly, and have used the latest
+		release candidates, you won't notice a whole drove of new features,
+		because we've mostly been stabilizing in preparation for 1.0.  You 
+		should notice an increased stability, level of documentation, and 
+		general polish on the code, though.
+		
+		We managed to sneak a few changes in since RC3 though. :)
+	 </p>                                       
+	
+	 <p>All in all, we've closed every outstanding feature request ticket.
+		So that means you're going to have to let us know if we missed 
+		stuff!</p>
+		
+	 <h3>Does 1.0 Mean You're Done?</h3>
+	
+	 <p>Absolutely not!  However, there are some interesting changes to the
+		project organization.</p>  
+		
+	 <p>Michael Milner will take Gregory Brown's place as lead developer 
+		effective immediately.  Gregory will be maintaining the stable
+		release branch of ruport, and will also be heading the development
+		of ruport-util.  Mike will be overseeing the development for 
+		Ruport 1.1+, as well as maintaining the acts_as_reportable rails plugin.
+	 </p> 
+	
+	<p>On the surface, not much will change.  A new benevolent dictator will
+		just create an opportunity for new ideas and project growth.  After
+		almost two years, it's time for Gregory to stop obsessing over 
+		Ruport anyhow.</p> 
+		
+	<h3>On the horizon</h3>
+	
+	<p>We plan to play it by ear and see what people think of Ruport 1.0 before
+		we worry about new developments in the core library.  However, we're
+		planning on doing a lot to augment the auxiliary libs.</p>
+		
+	<p>Gregory is currently working on a pair of camping apps that make use
+		of Ruport heavily for commercial work.  We plan to open-source these
+		soon enough, which should provide a decent working example of a 
+		non-trivial Ruport based system.</p>
+		
+	<p>Michael still has some tricks up his sleeve for acts_as_reportable, and
+		will be continuing to work on the plugin as new ideas arise.</p>
+		
+	<p>We'll also be working on getting any of the tools that we've developed
+		that might be generally useful into ruport-util.</p>
+		
+	<p>As you can see, there is no shortage of things to be done! We'll also
+		be working on getting you higher quality documentation and tutorials
+		as soon as we can</p>
+		
+	<h3>Where to from here?</h3>
+	
+	<p>
+	If you're interested in working with Ruport, you should have a look
+	at some of the <a href="resources.html">Resources</a> we have available
+	to users and contributors.  Our best resource is certainly our 
+	<a href="http://list.rubyreports.org">mailing list</a>, so please stop
+	by and let us know what you think!
+	</p> 
+	
+	<p>
+	Also, please have a look at the 
+	<a href="http://stonecode.svnrepository.com/ruport/trac.cgi/wiki/Acknowledgements">
+	long list of folks</a> who have directly
+	contributed to Ruport.  Without them, we'd never have made it to 1.0.	
+	</p>
+		   
+    </div>
+    <div id="secondaryContent">
+    </div>
+    <div id="footer">
+      <p>
+        Ruby Reports is free software under the 
+        <a href="http://www.ruby-lang.org/en/LICENSE.txt">License of Ruby</a>.
+      </p>
+      <p>
+        Site designed by Michael Milner.
+        Ruport logo designed by 
+        <a href="http://fashionpirat.de/">Daniel Dormann</a>.
+      </p>
+      <p>
+        All web content is licensed under the 
+        <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative 
+        Commons Attribution-Sharealike License</a>.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

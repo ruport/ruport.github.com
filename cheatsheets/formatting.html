@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Ruby Reports</title>
+  <link href="../ruport.css" rel="stylesheet" type="text/css" />
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+  _uacct = "UA-2193841-1";
+  urchinTracker();
+  </script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="mainNav">
+      <ul>
+        <li><a href="../ruport.html">Overview</a></li>              
+        <li><a href="../examples.html">Examples</a></li>  
+        <li><a href="http://api.rubyreports.org/">API Docs</a></li>
+        <li><a href="http://ruportbook.com">Book</a></li>
+        <li><a href="http://list.rubyreports.org">Mailing List</a></li>
+        <li><a href="http://code.rubyreports.org">Wiki</a></li>
+        <li><a href="http://blog.rubyreports.org/">Blog</a></li>    
+        <li><a href="../resources.html">Resources</a></li>
+      </ul>
+    </div>
+    <div id="logo">
+      <h1><span>Ruport: Ruby Reports</span></h1>
+      <h2>A simple, extensible reporting system built for Rubyists</h2>
+    </div>
+    <div id="mainContent">
+
+	<h2>Ruport&#8217;s Formatting System</h2>
+
+
+	<p>There are three stages in the reporting process that Ruport can handle -
+collecting data, manipulating data and formatting. All three can be used
+independently, and in this article we&#8217;ll focusing exclusively on formatting. As
+a contrived example, we&#8217;ll run through the definition and use of a report
+listing book sales.</p>
+
+
+	<h3>Renderer Definition</h3>
+
+
+	<p>Generally, each report is made up of two or more classes &#8211; one for the
+definition (the renderer), and one for each desired output format (formatters).
+The renderer defines the stages and the data required to build the report &#8211; it
+is important to keep this data as format independent as possible. For our sales
+report, something like this might be appropriate:</p>
+
+
+<pre><code>
+  require 'rubygems'
+  require 'ruport'
+
+  class SalesReport &lt; Ruport::Renderer
+    required_option :titles
+    option :report_title
+
+    stage :document_header, :document_body, :document_footer      
+    finalize :document
+  end
+</code></pre>
+
+	<p>This defines the following facts about our sales report:</p>
+
+
+	<ul>
+	<li>There are 4 stages called in order to build the report: a header, a body, a footer and finalizing.</li>
+		<li>There are 2 pieces of data requested to build the report: a list of titles (required) and a report title (optional).  You can define as many options like this as you wish.</li>
+	</ul>
+
+
+	<p>This class should be a descendant of Ruport::Renderer, which defines a number of
+methods to help you create your definition. Data needed to build your report can
+be specified using the <code>option</code> or <code>required_option</code> methods. The stages
+involved in building your report can be specified using the <code>prepare</code>, <code>stage</code>,
+and <code>finalize</code> methods. As we&#8217;ll see, these define hooks that can be used in
+your format definitions.</p>
+
+
+	<h3>Format Definition</h3>
+
+
+	<p>On its own, the renderer listed above won&#8217;t do much &#8211; we need to tell Ruport how
+to render it into the required format.</p>
+
+
+	<p>To begin with, we will create a text version of the report. Something like the
+following placed immediately after the first class should work nicely:</p>
+
+
+<pre><code>
+  class SalesReportText &lt; Ruport::Formatter
+    renders :text, :for =&gt; SalesReport
+
+    opt_reader :titles, :report_title
+
+    def pad(str, len)
+      return "".ljust(len) if str.nil?
+      str = str.slice(0, len) # truncate long strings
+      str.ljust(len) # pad with whitespace
+    end
+
+    def build_row(items, pads)
+      items.each_with_index do |item, i|
+        output &lt;&lt; pad(item, pads[i]) &lt;&lt; "|" 
+      end
+      output.chop!
+      output &lt;&lt; "\n" 
+    end
+
+    def build_document_header
+      if report_title
+        output &lt;&lt; "".ljust(75,"*") &lt;&lt; "\n" 
+        output &lt;&lt; "  #{report_title}\n" 
+        output &lt;&lt; "".ljust(75,"*") &lt;&lt; "\n" 
+        output &lt;&lt; "\n" 
+      end
+    end
+
+    def build_document_body
+      # table heading
+      build_row(['isbn', 'title', 'author', 'sales'], [15, 30, 15, 10])
+      output &lt;&lt; "".ljust(75,"#") &lt;&lt; "\n" 
+
+      # table data
+      titles.each do |title|
+        build_row([title["isbn"], title["title"], title["author"],
+          title["sales"].to_s], [15, 30, 15, 10])
+      end
+      output &lt;&lt; "".ljust(75,"#") &lt;&lt; "\n" 
+    end
+  end
+</code></pre>
+
+	<p>The first line of this class registers this output format with our renderer -
+this allows us to define as many different output formats for each renderer as
+we wish. The second line, the call to <code>opt_reader</code>, gives us attribute-like
+access to our options.</p>
+
+
+	<p>The <code>pad</code> function is a simple formatting function to simplify our work with
+strings and the <code>build_row</code> function is a helper to construct each row of the
+output.</p>
+
+
+	<p>The next two functions, <code>build_document_header</code> and <code>build_document_body</code>, are
+called to build the report. Notice the function names follow a particular style
+- these names are important and are a direct result of the stages defined by our
+renderer. They will be called in the order we specified in the renderer. The
+<code>finalize_document</code> function is also named to match the &#8220;finalize&#8221; line in the
+renderer.</p>
+
+
+	<p>Note that we don&#8217;t have to include all of the functions specified in the
+definition. In this case, we haven&#8217;t defined <code>build_document_footer</code> or
+<code>finalize_document</code> and if we don&#8217;t define a particular function, it simply
+won&#8217;t be called while building the report.</p>
+
+
+	<h3>Using it</h3>
+
+
+	<p>Now that our report is defined with at least one output format, we can use it in
+our application. One important thing to point out is that although Ruport
+contains its own Array-like class that makes managing your data easier, we
+haven&#8217;t used it in this example. Ruport&#8217;s Table class would be perfect for
+storing our book sales data, however we wanted to focus on building your report.</p>
+
+
+	<p>Assuming the report definition is in a file called salesreport.rb, the following
+code should be placed in app.rb in the same directory:</p>
+
+
+<pre><code>
+  require "salesreport" 
+
+  book1 = { "isbn"   =&gt; "978111111111",
+            "title"  =&gt; "Book Number One",
+            "author" =&gt; "me",
+            "sales"  =&gt; 10 }
+  book2 = { "isbn"   =&gt; "978222222222",
+            "title"  =&gt; "Two is better than one",
+            "author" =&gt; "you",
+            "sales"  =&gt; 267 }
+  book3 = { "isbn"   =&gt; "978333333333",
+            "title"  =&gt; "Three Blind Mice",
+            "author" =&gt; "John Howard",
+            "sales"  =&gt; 1 }
+  book4 = { "isbn"   =&gt; "978444444444",
+            "title"  =&gt; "The number 4",
+            "author" =&gt; "George Bush",
+            "sales"  =&gt; 1829 }
+
+  books = [book1, book2, book3, book4]
+
+  report = SalesReport.render_text do |e|
+    e.report_title = "December Sales Figures" 
+    e.titles = books
+  end
+
+  File.open("dec_sales.txt", "w") { |f| f.write report }
+</code></pre>
+
+	<p>Once the sample data has been built, the report itself is generated with a
+single block. Using this approach, building the report within your app only
+requires a few simple lines, hiding all formatting complexity.</p>
+
+<p>The output for this report is shown below</p>
+<pre>
+***************************************************************************
+  December Sales Figures
+***************************************************************************
+
+isbn           |title                         |author         |sales     
+###########################################################################
+978111111111   |Book Number One               |me             |10        
+978222222222   |Two is better than one        |you            |267       
+978333333333   |Three Blind Mice              |John Howard    |1         
+978444444444   |The number 4                  |George Bush    |1829      
+###########################################################################	 
+</pre>
+
+	<h3>Adding <span class="caps">PDF</span></h3>
+
+
+	<p>Sure text is fine in many situations (e.g. emailing the report to a co-worker),
+but these days <span class="caps">PDF</span> is becoming the format of choice for many people. How do we
+add it as an option for our sales report?</p>
+
+
+	<p>As mentioned earlier, Ruport won&#8217;t try to abstract any of the complexities of
+formatting your report. The default library for generating PDFs in Ruport is
+<span class="caps">PDF</span>::Writer, and you will need to get your hands dirty with the foibles of this
+library to make your <span class="caps">PDF</span>. The following code placed inside salesreport.rb should
+get you started.</p>
+
+
+<pre><code>
+  class SalesReportPDF &lt;  Ruport::Formatter::PDF
+    renders :pdf, :for =&gt; SalesReport
+
+    opt_reader :titles, :report_title
+
+    def add_title( title )
+      rounded_text_box("&lt;b&gt;#{title}&lt;/b&gt;") do |o|
+        o.fill_color = Color::RGB::Gray80
+        o.radius     = 5  
+        o.width      = options.header_width || 200
+        o.height     = options.header_height || 20
+        o.font_size  = options.header_font_size || 12
+        o.x          = pdf_writer.absolute_right_margin - o.width 
+        o.y          = pdf_writer.absolute_top_margin
+      end
+    end
+
+    def build_document_header
+      pad_bottom(50) { add_title(report_title) } if report_title 
+    end
+
+    def build_document_body 
+      draw_table Table(:column_names => %w[isbn title author sales],
+                       :data => titles), :maximum_width => 500
+    end
+
+    def finalize_document
+      render_pdf
+    end
+  end
+</code></pre>
+
+	<p>The structure of this is basically the same as the one that defined the text
+version, with two critical differences:</p>
+
+
+	<ul>
+	<li>It extends Ruport&#8217;s built-in <span class="caps">PDF</span> formatting class, which provides an instance of <span class="caps">PDF</span>::Writer as pdf_writer</li>
+		<li>The class registers itself to our SalesReport class with a different format (:pdf)</li>
+	</ul>
+
+
+	<p>Ruport&#8217;s built-in formatting class does offer some methods to help you with your
+<span class="caps">PDF</span> formatting and we used a couple of them in our example above. The available
+methods include:</p>
+
+    <small>
+	<ul>
+	<li><code>add_text</code> &#8211; adds text to your output</li>
+		<li><code>center_image_in_box</code> &#8211; takes an image path and box coordinates and centers within the box</li>
+		<li><code>rounded_text_box</code> &#8211; draw text surrounded by a rounded-corner box</li>
+		<li><code>watermark</code> &#8211; places a centered watermark on each page of your report</li>
+		<li><code>move_cursor</code> &#8211; moves cursor specified number of units along the y-axis</li>
+		<li><code>move_cursor_to</code> &#8211; moves cursor to a specified location on the y-axis</li>
+		<li><code>pad</code> &#8211; adds a specified amount of space above and below some output</li>
+		<li><code>pad_top</code> &#8211; adds a specified amount of space above some output</li>
+		<li><code>pad_bottom</code> &#8211; adds a specified amount of space below some output</li>
+		<li><code>draw_table</code> &#8211; uses <span class="caps">PDF</span>::SimpleTable to draw a table to output</li>
+		<li><code>horizontal_line</code> &#8211; draw a horizontal line</li>
+		<li><code>vertical_line</code> &#8211; draw a vertical line</li>
+		<li><code>left_boundary</code> &#8211; get the left boundary of the page</li>
+		<li><code>right_boundary</code> &#8211; get the right boundary of the page</li>
+		<li><code>top_boundary</code> &#8211; get the top boundary of the page</li>
+		<li><code>bottom_boundary</code> &#8211; get the bottom boundary of the page</li>
+		<li><code>cursor</code> &#8211; get the current location of the cursor on the y-axis</li>
+		<li><code>draw_text</code> &#8211; places text at a specified position on the page</li>
+	</ul> 
+	</small>
+
+
+	<p>So what changes do we have to make to our application to generate the <span class="caps">PDF</span>
+instead?  Leave the sample data definition the same, just modify the remaining
+lines like so:</p>
+
+
+<pre><code>
+  report = SalesReport.render_pdf do |e|
+    e.report_title = "December Sales Figures" 
+    e.titles = books
+  end
+
+  File.open("dec_sales.pdf", "w") { |f| f.write report }
+</code></pre>
+      
+<p>You can take a look at the <a href="../samples/dec_sales.pdf">pretty output</a> 
+ here</p>
+
+	<p>Switching output formats within your app according to user preference or
+whatever is a piece of cake.</p>   
+    </div>
+    <div id="secondaryContent">
+    </div>
+    <div id="footer">
+      <p>
+        Ruby Reports is free software under the 
+        <a href="http://www.ruby-lang.org/en/LICENSE.txt">License of Ruby</a>.
+      </p>
+      <p>
+        Site designed by Michael Milner.
+        Ruport logo designed by 
+        <a href="http://fashionpirat.de/">Daniel Dormann</a>.
+      </p>
+      <p>
+        All web content is licensed under the 
+        <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative 
+        Commons Attribution-Sharealike License</a>.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+

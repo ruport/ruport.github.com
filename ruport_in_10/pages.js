@@ -1,0 +1,14 @@
+document.title = "ruport_in_10";
+var numPages = 10;
+var curPage = 0;
+var pages = new Array(10);
+pages[0] = "pages/Page_1.jpg";
+pages[1] = "pages/Page_2.jpg";
+pages[2] = "pages/Page_3.jpg";
+pages[3] = "pages/Page_4.jpg";
+pages[4] = "pages/Page_5.jpg";
+pages[5] = "pages/Page_6.jpg";
+pages[6] = "pages/Page_7.jpg";
+pages[7] = "pages/Page_8.jpg";
+pages[8] = "pages/Page_9.jpg";
+pages[9] = "pages/Page_10.jpg";

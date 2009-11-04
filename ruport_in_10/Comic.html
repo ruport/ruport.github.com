@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<script type="text/javascript" language="javascript" src="pages.js"></script>
+<script type="text/javascript" language="javascript">
+
+    function updateButtons() {
+        var nextButton = document.getElementById("nextButton");
+        var prevButton = document.getElementById("prevButton");
+        nextButton.disabled = curPage == numPages - 1;
+        prevButton.disabled = curPage == 0;
+    }
+    
+    function nextPage() {
+        if (curPage < numPages - 1) { 
+            curPage = curPage +1;
+            var image = document.getElementById("pageImage");
+            image.src = pages[curPage];
+        }
+        updateButtons();
+    }
+    
+    function prevPage() {
+        if (curPage > 0) {
+            curPage = curPage - 1;
+            var image = document.getElementById("pageImage");
+            image.src = pages[curPage];
+        }
+        updateButtons();
+    }
+    
+</script>
+</HEAD>
+<BODY background="#FFFFFF" onload="updateButtons()">
+
+<table align="center" cellpadding="0" cellspacing="0" background="images/center.gif">
+
+    <tr>
+        <td width="12" height="12">
+            <img src="images/tl.gif" border="0" width="12" height="12">
+        </td>
+        <td height="12" background="images/top.gif"><IMG SRC="images/spacer.gif" height="12" width="1"></td>
+            <td width="12" height="12">
+            <img src="images/tr.gif" border="0" width="12" height="12">
+        </td>
+    </tr>
+    <tr>
+        <td width="12" background="images/left.gif">
+            <img height="1" width="1" src="images/spacer.gif" width="12" />
+        </td>
+        <td align="center"><img id="pageImage" src="pages/Page_1.jpg" border="0" /></td>
+        <td width="12" background="images/right.gif">
+            <img height="1" width="1" src="images/spacer.gif" width="12" />
+        </td>
+    </tr>
+    <tr>
+        <td width="12" background="images/left.gif">
+            <img height="1" width="1" src="images/spacer.gif" width="12" />
+        </td>
+        <td align="right">
+            <form>
+                <input type="button" id="prevButton" onclick="prevPage()" value="Previous"/>
+                <input type="button" id="nextButton" onclick="nextPage()" value="Next" />
+            </form>
+        </td>
+        <td width="12" background="images/right.gif">
+            <img height="1" width="1" src="images/spacer.gif" width="12" />
+        </td>
+    </tr>
+    <tr>
+        <td width="12" height="12">
+            <img src="images/bl.gif" border="0" width="12" height="12">
+        </td>
+        <td height="11" background="images/bottom.gif"><IMG SRC="images/spacer.gif" height="12" width="1"></td>
+            <td width="12" height="12">
+            <img src="images/br.gif" border="0" width="12" height="12">
+        </td>
+    </tr>    
+</table>
+</BODY>
+
+</HTML>
