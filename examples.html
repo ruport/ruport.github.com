@@ -64,7 +64,7 @@
 
 <pre>
   t = Table("foo.csv")
-  grouping = Grouping(t,:by => "name")
+  grouping = Grouping(t,:by =&gt; "name")
   puts grouping.to_pdf
 </pre>      
 
@@ -109,7 +109,7 @@ as well.
 </p>
 
 <pre>
-  puts MyModel.report_table(:all, :conditions => ["name = ?", "gregory"]).to_csv 
+  puts MyModel.report_table(:all, :conditions =&gt; ["name = ?", "gregory"]).to_csv
 </pre>
 
 <p>
@@ -137,7 +137,7 @@ Here is a trivial graphing example:
 
   require "ruport/util"
 
-  class GraphReport < Ruport::Report 
+  class GraphReport &lt; Ruport::Report 
 
     renders_as_graph
 
@@ -151,7 +151,7 @@ Here is a trivial graphing example:
   end                                
 
   GraphReport.generate do |r| 
-    r.save_as("foo.svg", :template => :graph)
+    r.save_as("foo.svg", :template =&gt; :graph)
   end
 </pre>
 
